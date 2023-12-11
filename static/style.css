@@ -1,0 +1,133 @@
+body {
+    background-image: url("background.jpg");
+    background-blend-mode: multiply;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+@media(max-width: 991px) {
+    .sidebar {
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+    }
+}
+.navbar {
+    background-color: #fff;
+    height: 80px;
+    margin: 20px;
+    border-radius: 16px;
+    padding: 0.5rem;
+}
+
+.navbar-brand {
+    font-weight: 500;
+    color: #8bd2f3;
+    font-size: 24px;
+    transition: 0.3s color;
+}
+
+.navbar-toggler {
+    border: none;
+    font-size: 1.25rem;
+}
+
+.navbar-toggler:focus,
+.btn-close:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.nav-link {
+    color: #666777;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #000;
+}
+
+@media (min-width: 991px) {
+    .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 2px;
+        background-color: #009970;
+        visibility: hidden;
+        transition: 0.3s ease-in-out;
+    }
+
+    .nav-link:hover::before,
+    .nav-link:active:before {
+        width: 100%;
+        visibility: visible;
+
+    }
+}
+
+html, 
+body{
+    height: 100%;
+    background-color: #05a8f3 !important;
+}
+
+.global-container{
+    height: 100%;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    color: #48e248;
+}
+
+.login-form{
+    width: 380px;
+    height: 450px;
+    padding: 20px;
+    background-color: #8bd2f3 !important;
+    border-radius: 10px !important;
+}
+
+input[type="username"],
+input[type="password"]{
+    background: #cee6ee;
+    color: #000;
+    border: 2px solid #032f44;
+    border-radius: 10px;
+    margin-top: 25px;
+}
+
+input[type="username"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border: none;
+    background: #05a8f3;
+    color: #000;
+    margin: 0;
+}
+
+.card-title{
+    font-weight: 900;
+    padding-top: 20px;
+}
+
+.btn{
+    background: #187ba8 !important;
+    color: #000;
+    transform: translateY(10px);
+    font-size: 14px;
+    border-radius: 10px !important;
+}
+
+.container{
+    padding-top: 15px;
+}
+
+.Signup{
+    padding-bottom: 50px;
+}
