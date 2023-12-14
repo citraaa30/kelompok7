@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
@@ -93,5 +92,3 @@ def pegawai():
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
-
->>>>>>> 7366232e64fd0f87d6ecc9c3e6a4fa7ee7a94fe0
