@@ -12,6 +12,13 @@
     <link href="static/style.css" rel="stylesheet">
     <title>Rumah Sakit</title>
 </head>
+<style>
+    .mycards {
+            margin: 10px auto 10px auto;
+            width: 95%;
+            max-width: 1200px;
+    }
+</style>
 
 <body>
 
@@ -58,13 +65,33 @@
                 </div>
             </div>
         </nav>
+        <br>
+        <br>
+        <br>
+        <br>
 
         <main>
-            <section class="w-100 vh-100 d-flex flex-column justify-content-center align-items-center text-white fs-1">
-                <h1 style="font-size: 1.5em;">RUMAH SAKIT</h1>
-                <h1 style="font-size: 1.3em;">Klinik Kita</h1>
-            </section>
+            <div class="mycards">
+                <div class="row row-cols-1 row-cols-md-2 g-6" id="cards-box">
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="static/perawat.jpg"
+                                class="card-img-top">
+                                <h5 class="card-title">Pegawai</h5>
+                                <p class="mycomment">Shift Pagi Shift Siang Shift Malam Shift Fleksibel atau Bergantian</p>
+                        </div>
+                    </div>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img src="static/dokter.jpg"
+                                        class="card-img-top">
+                                        <h5 class="card-title">Dokter</h5>
+                                        <p class="mycomment">Jadwal Harian Jadwal Shift di Unit Gawat Darurat (UGD) Jadwal Shift di Unit Rawat Inap Jadwal OperasiJadwal Konsultasi dan Pertemuan Tim Medis </p>
+                                </div>
+                            </div>
         </main>
+
+
 
 
 

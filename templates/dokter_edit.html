@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Edit Data Pegawai</title>
+</head>
+<style>
+    body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+</style>
+<body>
+
+<div class="container mt-5">
+    <h2>Edit Data Pegawai</h2>
+    <form id="editForm">
+        <div class="form-group">
+            <label for="idDokter">ID Dokter:</label>
+            <input type="text" class="form-control" id="idDokter" name="idDokter" readonly>
+        </div>
+        <div class="form-group">
+            <label for="nama">Nama:</label>
+            <input type="text" class="form-control" id="nama" name="nama" required>
+        </div>
+        <div class="form-group">
+            <label for="noTelepon">No Telepon:</label>
+            <input type="tel" class="form-control" id="noTelepon" name="noTelepon" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="posisi">Posisi:</label>
+            <select class="form-control" id="posisi" name="posisi" required>
+                <option value="Dokter">Dokter</option>
+                <option value="Perawat">Perawat</option>
+                <option value="Admin">Admin</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="shift">Shift:</label>
+            <select class="form-control" id="shift" name="shift" required>
+                <option value="Pagi">Pagi</option>
+                <option value="Sore">Sore</option>
+                <option value="Malam">Malam</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+    </form>
+</div>
+<script>
+    // Dummy data, gantilah dengan metode sesuai backend yang Anda gunakan
+const dummyData = {
+    idDokter: "123",
+    nama: "John Doe",
+    noTelepon: "08123456789",
+    email: "john.doe@example.com",
+    posisi: "Dokter",
+    shift: "Pagi"
+};
+
+// Fungsi untuk mengisi formulir dengan data dummy
+function fillFormWithData(data) {
+    document.getElementById("idDokter").value = data.idDokter;
+    document.getElementById("nama").value = data.nama;
+    document.getElementById("noTelepon").value = data.noTelepon;
+    document.getElementById("email").value = data.email;
+    document.getElementById("posisi").value = data.posisi;
+    document.getElementById("shift").value = data.shift;
+}
+
+// Jalankan fungsi saat halaman dimuat
+document.addEventListener("DOMContentLoaded", function () {
+    fillFormWithData(dummyData);
+});
+
+// Tambahkan fungsi untuk menangani pengiriman formulir (misalnya, AJAX ke backend)
+document.getElementById("editForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+    // Tambahkan logika pengiriman data ke backend di sini
+    alert("Data berhasil disimpan!");
+});
+
+    </script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
+
