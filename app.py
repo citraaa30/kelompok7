@@ -18,6 +18,18 @@ def register():
 def home():
     return render_template('absen.html')
 
+@app.route('/layanan')
+def layanan():
+    return render_template('layanan.html')
+
+@app.route('/pegawai_edit')
+def pegawai_edit():
+    return render_template('pegawai_edit.html')
+
+@app.route('/pegawai')
+def pegawai():
+    return render_template('pegawai.html')
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
 
