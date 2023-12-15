@@ -27,39 +27,84 @@
                 
                 <p class="text-center text-muted lead">It's Free and Takes Minute</p>
                 <!-- from start -->
-                <form action="#">
+                <form id="signupForm" action="/api/register" method="post" onsubmit="submitForm(); return false;">
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa fa-user"></i></span>
-                            <input type="text" class="form-control" placeholder="First Name"/>
+                        <input type="text" class="form-control" id="first_name" placeholder="First Name"/>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa fa-user"></i></span>
-                            <input type="text" class="form-control" placeholder="Last Name"/>
+                        <input type="text" class="form-control" id="last_name" placeholder="Last Name"/>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                            <input type="text" class="form-control" placeholder="Email"/>
+                        <input type="text" class="form-control" id="email" placeholder="Email"/>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                            <input type="text" class="form-control" placeholder="Password"/>
+                        <input type="text" class="form-control" id="password" placeholder="Password"/>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                            <input type="text" class="form-control" placeholder="Confirm Password"/>
+                        <input type="text" class="form-control" id="confirm_password" placeholder="Confirm Password"/>
                     </div>
                     <div class="Signup d-grid">
                         <button type="button" class="btn btn-success">Signup Now</button>
                     </div>
-                </form>
-                    <p class="text-center text-muted lead">Jika sudah pernah daftar, Silahkan <a href ="/login">Login</a></p>
-                    
-                        
+                </form>  
 
                 <!-- from close -->
             </div>
         </div>
     </div>
+
+ <script>  
+function submitForm() {
+    var formData = {
+        first_name: document.getElementById('first_name').value,
+        last_name: document.getElementById('last_name').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        confirm_password: document.getElementById('confirm_password').value
+    };
+
+    // Validasi form sebelum mengirim data ke server
+    for (const key in formData) {
+        if (!formData[key]) {
+            alert('Semua kolom harus diisi');
+            return; // Berhenti jika ada kolom yang kosong
+        }
+    }
+
+    fetch('/api/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+        } else if (data.message) {
+            alert(data.message);
+            if (data.user_id) {
+                window.location.href = '/login';
+            }
+        } else {
+            alert('Response tidak diketahui');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+
+</script>
+    
+
 </body>
 
 </html>

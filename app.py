@@ -1,6 +1,20 @@
-from flask import Flask, render_template, request, jsonify
+import os
+from pymongo import MongoClient
+import jwt
+from datetime import datetime, timedelta
+import time
+import hashlib
+import uuid
+import requests
+from flask import Flask, send_file, render_template, jsonify, request, redirect, url_for
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+
+MONGODB_CONNECTION_STRING = "mongodb+srv://citra:citra123@cluster0.64sqdbj.mongodb.net/?retryWrites=true&w=majority"
+client = MongoClient(MONGODB_CONNECTION_STRING)
+db = client.dbprojectakhir
+
 
 @app.route('/')
 def index():
@@ -10,13 +24,62 @@ def index():
 def login():
     return render_template('login.html')
 
+
 @app.route('/register')
 def register():
     return render_template('register.html')
 
-@app.route('/absen')
-def home():
-    return render_template('absen.html')
+@app.route('/api/register', methods=['POST'])
+def api_register():
+    # Dapatkan data dari permintaan
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    confirm_password = request.form.get('confirm_password')
+
+    # Validasi data
+    if not (first_name and last_name and email and password and confirm_password):
+        return jsonify({'error': 'Semua kolom harus diisi'}), 400
+
+    if password != confirm_password:
+        return jsonify({'error': 'Kata sandi tidak cocok'}), 400
+
+    # Buat objek pengguna
+    user = {
+        'first_name': first_name,
+        'last_name': last_name,
+        'email': email,
+        'password': password  # Catatan: Pada aplikasi nyata, sebaiknya mengenkripsi kata sandi
+    }
+
+    # Masukkan pengguna ke koleksi MongoDB
+    db = db.users
+    result = db.insert_one(user)
+
+    # Kembalikan respons sukses
+    return jsonify({'message': 'Registrasi berhasil', 'user_id': str(result.inserted_id)})
+
+@app.route('/pegawai_absen', methods=['GET'])
+def pegawai_absen_page():
+    return render_template('pegawai_absen.html')
+
+# Fungsi untuk menerima data absen melalui AJAX
+@app.route('/pegawai_absen', methods=['POST'])
+def absen():
+   if request.method == 'POST':
+        data = {
+            'waktu_absen': datetime.now(),
+            # tambahkan data absen lainnya sesuai kebutuhan
+        }
+
+        # Simpan data absen ke MongoDB
+        db = db.user # Ganti 'nama_collection' dengan nama koleksi Anda
+        db.insert_one(db)
+
+        response_data = {'status': 'success', 'message': 'Absen berhasil dilakukan'}
+        return jsonify(response_data)
+
 
 @app.route('/layanan')
 def layanan():
@@ -53,42 +116,6 @@ def dokter_edit():
 @app.route('/dokter_home')
 def dokter_home():
     return render_template('dokter_home.html')
-
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
-
-=======
-from flask import Flask, render_template, request, jsonify
-
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
-
-@app.route('/register')
-def register():
-    return render_template('register.html')
-
-@app.route('/absen')
-def home():
-    return render_template('absen.html')
-
-@app.route('/layanan')
-def layanan():
-    return render_template('layanan.html')
-
-@app.route('/pegawai_edit')
-def pegawai_edit():
-    return render_template('pegawai_edit.html')
-
-@app.route('/pegawai')
-def pegawai():
-    return render_template('pegawai.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

@@ -63,22 +63,79 @@
         <br>
         <br>
 
-        <main>
-            <h1 class="text-center">Selamat Datang, Pegawai</h1>
-            <p class="text-center">Silahkan Lakukan Absensi Harian</p>
-            <div class="card col-md-8 mx-auto" style="width: 25rem;" >
-                <div class="card-body">
-                  <center><h5 class="card-title"><p class="text-decoration-underline">Rabu, 6 Desember 2023</p></h5></center>
-                  <div class="row">
-                    <div class="col-md-7">
-                        <a href="#" class="btn btn-primary">Absen Masuk</a>
-                    </div>
-                    <div class="col-md-5">
-                        <a href="#" class="btn btn-primary">Absen Pulang</a>
-                    </div>
-              </div>
-        </main>
         
+    <main>
+        <h1 class="text-center">Selamat Datang, Pegawai</h1>
+        <p class="text-center">Silahkan Lakukan Absensi Harian</p>
+        <div class="card col-md-8 mx-auto" style="width: 25rem;">
+            <div class="card-body">
+                    <center>
+                        <h5 class="card-title"><p class="text-decoration-underline" id="tanggalText"></p></h5>
+                    </center>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <input type="hidden" name="tanggal" value="Rabu, 6 Desember 2023">
+                            <input type="hidden" name="jenis_absen" value="Masuk">
+                            <button class="btn btn-primary" id="absenMasukBtn">Absen Masuk</button>
+                        </div>
+                        <div class="col-md-5">
+                            <input type="hidden" name="tanggal" value="Rabu, 6 Desember 2023">
+                            <input type="hidden" name="jenis_absen" value="Pulang">
+                            <button class="btn btn-primary" id="absenPulangBtn">Absen Pulang</button>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('absenMasukBtn').addEventListener('click', function () {
+            // Kirim permintaan POST ke server Flask untuk melakukan absen masuk
+            sendAbsenRequest('masuk');
+        });
+    
+        document.getElementById('absenPulangBtn').addEventListener('click', function () {
+            // Kirim permintaan POST ke server Flask untuk melakukan absen pulang
+            sendAbsenRequest('pulang');
+        });
+    
+        function sendAbsenRequest(jenisAbsen) {
+            fetch(`/api/absen/${jenisAbsen}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({}),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Tampilkan pesan atau lakukan tindakan lainnya
+                    alert(data.message);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    
+    var tanggalSekarang = new Date();
+
+    // Mendapatkan hari dalam bahasa Inggris
+    var options = { weekday: 'long' };
+    var hari = new Intl.DateTimeFormat('en-US', options).format(tanggalSekarang);
+
+    // Mendapatkan tanggal, bulan, dan tahun
+    var tanggal = tanggalSekarang.getDate();
+    var bulan = tanggalSekarang.toLocaleString('en-US', { month: 'long' });
+    var tahun = tanggalSekarang.getFullYear();
+
+    // Menampilkan tanggal dengan format yang sesuai
+    var tanggalText = `${hari}, ${tanggal} ${bulan} ${tahun}`;
+    document.getElementById('tanggalText').innerText = tanggalText;
+    </script>
+</body>
+<!-- ... -->
 
 
 
