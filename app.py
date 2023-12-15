@@ -117,5 +117,43 @@ def dokter_edit():
 def dokter_home():
     return render_template('dokter_home.html')
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+app.route('/tambah_dokter_page')
+def tambah_dokter_page():
+    return render_template('dokter_tambah.html')
+
+# Endpoint untuk menambahkan data dokter
+@app.route('/tambah_dokter', methods=['POST'])
+def tambah_dokter():
+    if request.method == 'POST':
+        # Dapatkan data dari formulir HTML
+        id_dokter = request.form.get('id_dokter')
+        name = request.form.get('name')
+        NoTelp = request.form.get('NoTelp')
+        email = request.form.get('email')
+        poli = request.form.get('poli')
+        shift = request.form.get('shift')
+
+        # Validasi data
+        if not (id_dokter and name and NoTelp and email and poli and shift):
+            return jsonify({'error': 'Semua kolom harus diisi'}), 400
+
+        # Buat objek dokter
+        dokter = {
+            'id_dokter': id_dokter,
+            'name': name,
+            'NoTelp': NoTelp,
+            'email': email,
+            'poli': poli,
+            'shift': shift,
+            'timestamp': datetime.now()
+        }
+
+        # Masukkan data dokter ke koleksi MongoDB
+        koleksi_dokter = db.dokter
+        result = koleksi_dokter.insert_one(dokter)
+
+        # Kembalikan respons sukses
+        return jsonify({'message': 'Data dokter berhasil ditambahkan', 'dokter_id': str(result.inserted_id)})
+
+if __name__ == "__main__":
+    app.run("0.0.0.0", port=5000, debug=True)
