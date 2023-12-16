@@ -153,9 +153,26 @@ def pegawai_tambah():
 def dokter_absen():
     return render_template('dokter_absen.html')
 
-@app.route('/dokter_data')
-def dokter_data():
-    return render_template('dokter_data.html')
+app.route('/tambah_dokter_page')
+def tambah_dokter_page():
+    return render_template('tambah_dokter.html')
+
+@app.route('/dokter', methods=['GET', 'POST'])
+def dokter():
+    if request.method == 'POST':
+        id_dokter = request.form['id_dokter']
+        name = request.form['name']
+        telepon = request.form['telepon']
+        email = request.form['email']
+        poli = request.form['poli']
+        shift = request.form['shift']
+ 
+        db.dokter.insert_one({'id_dokter': id_dokter, 'name': name, 'telepon': telepon, 'email' : email, 'poli': poli, 'shift' : shift})
+
+        return redirect(url_for('dokter'))
+
+    dokter = db.dokter.find()
+    return render_template('dokter.html', dokter=dokter)
 
 @app.route('/dokter_edit')
 def dokter_edit():
@@ -165,5 +182,5 @@ def dokter_edit():
 def dokter_home():
     return render_template('dokter_home.html')
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+if __name__ == "__main__":
+    app.run("0.0.0.0", port=5000, debug=True)
