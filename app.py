@@ -89,65 +89,83 @@ def absen():
 def layanan():
     return render_template('layanan.html')
 
+app.route('/tambah_pegawai_page')
+def tambah_pegawai_page():
+    return render_template('tambah_pegawai.html')
+
+@app.route('/pegawai', methods=['GET', 'POST'])
+def pegawai():
+    if request.method == 'POST':
+        id_pegawai = request.form['id_pegawai']
+        name = request.form['name']
+        telepon = request.form['telepon']
+        email = request.form['email']
+        posisi = request.form['posisi']
+        shift = request.form['shift']
+ 
+        db.pegawai.insert_one({'id_pegawai': id_pegawai, 'name': name, 'telepon': telepon, 'email' : email, 'posisi': posisi, 'shift' : shift})
+
+        return redirect(url_for('pegawai'))
+
+    pegawai = db.pegawai.find()
+    return render_template('pegawai.html', pegawai=pegawai)
+
 @app.route('/pegawai_edit')
 def pegawai_edit():
     return render_template('pegawai_edit.html')
 
-@app.route('/pegawai_data')
-def pegawai_data():
-    return render_template('pegawai_data.html')
 
 @app.route('/pegawai_absen')
 def pegawai_absen():
     return render_template('pegawai_absen.html')
 
-@app.route('/pegawai_home')
-def pegawai_home():
-    return render_template('pegawai_home.html')
+# @app.route('/pegawai_home')
+# def pegawai_home():
+#     return render_template('pegawai_home.html')
 
-class PegawaiDataResource(Resource):
-    def get(self):
-        # Ambil data pegawai dari MongoDB
-        data_pegawai = list(db.pegawai.find({}, {"_id": 0}))
-        return {"pegawai_data": pegawai_data}
+# class PegawaiDataResource(Resource):
+#     def get(self):
+#         # Ambil data pegawai dari MongoDB
+#         data_pegawai = list(db.pegawai.find({}, {"_id": 0}))
+#         return {"pegawai_data": pegawai}
 
-    def post(self):
-        # Terima data pegawai dari permintaan POST
-        pegawai_baru = request.json
+#     def post(self):
+#         # Terima data pegawai dari permintaan POST
+#         pegawai_baru = request.json
 
-        # Simpan pegawai baru ke MongoDB
-        db.pegawai.insert_one(pegawai_baru)
+#         # Simpan pegawai baru ke MongoDB
+#         db.pegawai.insert_one(pegawai_baru)
 
-        return {"message": "Pegawai berhasil ditambahkan"}
+#         return {"message": "Pegawai berhasil ditambahkan"}
 
-api.add_resource(PegawaiDataResource, '/api/pegawai_data')
+# api.add_resource(PegawaiDataResource, '/api/pegawai_data')
 
-@app.route('/pegawai_tambah', methods=['GET', 'POST'])
-def pegawai_tambah():
-    if request.method == 'POST':
-        # Terima data pegawai dari formulir
-        id_pegawai = request.form.get('id_dokter')
-        nama = request.form.get('name')
-        no_telepon = request.form.get('NoTelp')
-        email = request.form.get('email')
-        posisi = request.form.get('poli')
-        shift = request.form.get('shift')
+# @app.route('/pegawai_tambah', methods=['GET', 'POST'])
+# def pegawai_tambah():
+#     if request.method == 'POST':
+#         # Terima data pegawai dari formulir
+#         id_pegawai = request.form.get('id_dokter')
+#         nama = request.form.get('name')
+#         no_telepon = request.form.get('NoTelp')
+#         email = request.form.get('email')
+#         posisi = request.form.get('poli')
+#         shift = request.form.get('shift')
 
-        # Simpan pegawai baru ke MongoDB
-        pegawai_baru = {
-            "id": id_pegawai,
-            "nama": nama,
-            "no_telepon": no_telepon,
-            "email": email,
-            "posisi": posisi,
-            "shift": shift
-        }
-        db.pegawai.insert_one(pegawai_baru)
+#         # Simpan pegawai baru ke MongoDB
+#         pegawai_baru = {
+#             "id": id_pegawai,
+#             "nama": nama,
+#             "no_telepon": no_telepon,
+#             "email": email,
+#             "posisi": posisi,
+#             "shift": shift
+#         }
+#         db.pegawai.insert_one(pegawai_baru)
 
-        # Redirect ke laman pegawai_data setelah submit
-        return redirect(url_for('pegawai_data'))
+#         # Redirect ke laman pegawai_data setelah submit
+#         return redirect(url_for('pegawai_data'))
 
-    return render_template('pegawai_tambah.html')
+#     return render_template('pegawai_tambah.html')
 
 @app.route('/dokter_absen')
 def dokter_absen():
