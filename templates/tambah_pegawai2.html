@@ -46,31 +46,31 @@
             transition: 0.3s color;
         }
 
-        .navbar-toggler {
-            border: none;
-            font-size: 1.25rem;
-        }
+.navbar-toggler {
+    border: none;
+    font-size: 1.25rem;
+}
 
-        .navbar-toggler:focus,
-        .btn-close:focus {
-            box-shadow: none;
-            outline: none;
-        }
+.navbar-toggler:focus,
+.btn-close:focus {
+    box-shadow: none;
+    outline: none;
+}
 
-        .nav-link {
-            color: #666777;
-            font-weight: 500;
-            position: relative;
-        }
+.nav-link {
+    color: #666777;
+    font-weight: 500;
+    position: relative;
+}
 
-        .nav-link:hover,
-        .nav-link.active {
-            color: #000;
-        }
+.nav-link:hover,
+.nav-link.active {
+    color: #000;
+}
 
-        @media (min-width: 991px) {
-            .nav-link::before {
-                content: "";
+@media (min-width: 991px) {
+    .nav-link::before {
+        content: "";
                 position: absolute;
                 bottom: 0;
                 left: 50%;
@@ -141,21 +141,19 @@
             </div>
         </div>
     </nav>
-
     <main>
         <section class="container">
 
             <div class="row justify-content-center" style="padding-top: 150px;">
                 <div class="col-12 col-sm-6 bg-white m-auto" style="padding-bottom: 10px; border-radius: 16px;">
                     <h2 class="text-center mb-3">Tambahkan Data Pegawai</h2>
-                    <form name="tambahanggota" action="/dokter" method="POST">
+                    <form name="tambahanggota" action="{{ url_for('pegawai_tambah') }}" method="post">
                         <div class="row mb-3">
-                            <label for="id_dokter" class="col-sm-2 col-form-label">ID Dokter</label>
+                            <label for="id_dokter" class="col-sm-2 col-form-label">ID Pegawai</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="id_dokter" name="id_dokter">
                             </div>
                         </div>
-
                         <div class="row mb-3">
                             <label for="name" class="col-sm-2 col-form-label">Nama</label>
                             <div class="col-sm-10">
@@ -164,9 +162,9 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="telepon" class="col-sm-2 col-form-label">No Telepon</label>
+                            <label for="NoTelp" class="col-sm-2 col-form-label">No Telepon</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control" id="telepon" name="telepon">
+                                <input type="number" class="form-control" id="NoTelp" name="NoTelp">
                             </div>
                         </div>
 
@@ -178,22 +176,21 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="poli" class="col-sm-2 col-form-label">Nama Poli</label>
+                            <label for="posisi" class="col-sm-2 col-form-label">Posisi</label>
                             <div class="col-sm-10">
-                                <select class="form-select" aria-label="Default select example" id="poli"
-                                    name="poli">
-                                    <option selected>--Pilih Poli--</option>
-                                    <option value="Poli Umum">Poliklinik Umum</option>
-                                    <option value="Poli Anak">Poliklinik Anak</option>
-                                    <option value="Poli Gigi">Poliklinik Gigi</option>
-                                    <option value="Poli Bedah">Poliklinik Bedah</option>
-                                    <option value="Poli Penyakit Dalam">Poliklinik Penyakit Dalam</option>
-                                    <option value="Poli Mata">Poliklinik Mata</option>
-                                    <option value="Poli Kandungan">Poliklinik Kandungan</option>
-                                    <option value="Poli JIwa">Poliklinik Jiwa</option>
-                                    <option value="Poli Jantung">Poliklinik Jantung</option>
-                                    <option value="Poli Paru">Poliklinik Paru</option>
-                                    <option value="Poli Psikologi">Poliklinik Psikologi</option>
+                                <select class="form-select" aria-label="Default select example" id="posisi"
+                                    name="posisi">
+                                    <option selected>--Pilih Posisi--</option>
+                                    <option value="1">Administrasi</option>
+                                    <option value="2">Apoteker</option>
+                                    <option value="3">Staff IT</option>
+                                    <option value="4">Teknisi Lab</option>
+                                    <option value="5">Humas</option>
+                                    <option value="6">Kasir</option>
+                                    <option value="7">Gizi</option>
+                                    <option value="8">Kesehatan Lingkungan</option>
+                                    <option value="9">Security</option>
+                                    <option value="10">Cleaning Service</option>
                                 </select>
                             </div>
                         </div>
@@ -202,22 +199,22 @@
                             <label for="shift" class="col-sm-2 col-form-label">Shift</label>
                             <div class="col-sm-10">
                                 <select class="form-select" aria-label="Default select example" id="shift"
-                                    name="shift">
-                                    <option selected>--Pilih Shift--</option>
-                                    <option value="Pagi">Shift Pagi</option>
-                                    <option value="Siang">Shift Siang</option>
-                                    <option value="Malam">Shift Malam</option>
+                                name="shift">
+                                <option selected>--Pilih Shift--</option>
+                                <option value="1">Shift Pagi</option>
+                                <option value="2">Shift Siang</option>
+                                <option value="3">Shift Malam</option>
 
-                                </select>
-                            </div>
+                            </select>
                         </div>
-                        <button type="submit" class="btn btn-success">Submit</button>
-                    </form>
-                </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
             </div>
+        </div>
 
-        </section>
-    </main>
+    </section>
+</main>
 </body>
 
 </html>
