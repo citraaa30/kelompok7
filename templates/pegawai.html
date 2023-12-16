@@ -36,37 +36,36 @@
 <body>
 
     <div class="container mt-5">
-        <h2>Data Dokter</h2>
+        <h2>Data Pegawai</h2>
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID Dokter</th>
+                    <th>ID Pegawai</th>
                     <th>Nama</th>
                     <th>No Telepon</th>
                     <th>Email</th>
-                    <th>Poli</th>
+                    <th>Posisi</th>
                     <th>Shift</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                {% for dokter in dokter %}
+                {% for pegawai in pegawai %}
                 <tr>
-                    <th>{{ dokter.id_dokter }}</th>
-                    <th>{{ dokter.name }}</th>
-                    <th>{{ dokter.telepon }}</th>
-                    <th>{{ dokter.email }}</th>
-                    <th>{{ dokter.poli }}</th>
-                    <th>{{ dokter.shift }}</th>
+                    <th>{{ pegawai.id_pegawai }}</th>
+                    <th>{{ pegawai.name }}</th>
+                    <th>{{ pegawai.telepon }}</th>
+                    <th>{{ pegawai.email }}</th>
+                    <th>{{ pegawai.posisi }}</th>
+                    <th>{{ pegawai.shift }}</th>
                     <th>
-                        <a href="{{ url_for('edit_dokter', id_dokter=dokter.id_dokter) }}" class="btn btn-primary">Edit</a>
-                        <a href="{{ url_for('delete_dokter', id_dokter=dokter.id_dokter) }}" class="btn btn-danger">Delete</a>
+                        <a href="{{ url_for('edit_pegawai', id_pegawai=pegawai.id_pegawai) }}" class="btn btn-primary">Edit</a>
+                        <a href="{{ url_for('delete_pegawai', id_pegawai=pegawai.id_pegawai) }}" class="btn btn-danger">Delete</a>
                     </th>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="{{ url_for('tambah_dokter_page') }}" class="btn btn-primary">Kembali Ke Home</a>
     </div>
 
 </body>

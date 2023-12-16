@@ -118,10 +118,10 @@
                 <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
                     <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
                         <li class="nav-item mx-2">
-                            <a class="nav-link" href="#absen">Dokter</a>
+                            <a class="nav-link active" aria-current="page" href="#">Dokter</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link active" aria-current="page" href="#">Pegawai</a>
+                            <a class="nav-link" href="#pegawai">Pegawai</a>
                         </li>
                         <li class="nav-item mx-2">
                             <a class="nav-link" href="#absen">Absen</a>
@@ -148,11 +148,17 @@
             <div class="row justify-content-center" style="padding-top: 150px;">
                 <div class="col-12 col-sm-6 bg-white m-auto" style="padding-bottom: 10px; border-radius: 16px;">
                     <h2 class="text-center mb-3">Tambahkan Data Pegawai</h2>
+<<<<<<< HEAD:templates/pegawai_tambah.html
                     <form name="tambahanggota" action="/dokter" method="POST">
                         <div class="row mb-3">
                             <label for="id_dokter" class="col-sm-2 col-form-label">ID Dokter</label>
+=======
+                    <form name="tambahanggota" action="/pegawai" method="POST">
+                        <div class="row mb-3">
+                            <label for="id_pegawai" class="col-sm-2 col-form-label">ID Pegawai</label>
+>>>>>>> 69e090139a9b9a10ebdcc4a85163488c2cdd0016:templates/tambah_pegawai.html
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="id_dokter" name="id_dokter">
+                                <input type="text" class="form-control" id="id_pegawai" name="id_pegawai">
                             </div>
                         </div>
 
@@ -180,6 +186,7 @@
                         <div class="row mb-3">
                             <label for="poli" class="col-sm-2 col-form-label">Nama Poli</label>
                             <div class="col-sm-10">
+<<<<<<< HEAD:templates/pegawai_tambah.html
                                 <select class="form-select" aria-label="Default select example" id="poli"
                                     name="poli">
                                     <option selected>--Pilih Poli--</option>
@@ -194,6 +201,21 @@
                                     <option value="Poli Jantung">Poliklinik Jantung</option>
                                     <option value="Poli Paru">Poliklinik Paru</option>
                                     <option value="Poli Psikologi">Poliklinik Psikologi</option>
+=======
+                                <select class="form-select" aria-label="Default select example" id="posisi"
+                                    name="posisi">
+                                    <option selected>--Pilih Posisi--</option>
+                                    <option value="Administrasi">Administrasi</option>
+                                    <option value="Apoteker">Apoteker</option>
+                                    <option value="Staff IT">Staff IT</option>
+                                    <option value="Teknisi Lab">Teknisi Lab</option>
+                                    <option value="Humas">Humas</option>
+                                    <option value="Kasir">Kasir</option>
+                                    <option value="Gizi">Gizi</option>
+                                    <option value="Kesehatan Lingkungan">Kesehatan Lingkungan</option>
+                                    <option value="Security">Security</option>
+                                    <option value="Cleaning Service">Cleaning Service</option>
+>>>>>>> 69e090139a9b9a10ebdcc4a85163488c2cdd0016:templates/tambah_pegawai.html
                                 </select>
                             </div>
                         </div>

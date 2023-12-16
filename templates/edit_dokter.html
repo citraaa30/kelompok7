@@ -13,11 +13,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
-    <title>Form Tambah Data</title>
+    <title>Form Edit Data</title>
 
     <style>
         body {
-            background-image: url("../static/background.jpg");
+            background-image: url("../static/bg.jpg");
             background-blend-mode: multiply;
             background-position: center;
             background-size: cover;
@@ -147,52 +147,53 @@
 
             <div class="row justify-content-center" style="padding-top: 150px;">
                 <div class="col-12 col-sm-6 bg-white m-auto" style="padding-bottom: 10px; border-radius: 16px;">
-                    <h2 class="text-center mb-3">Tambahkan Data Pegawai</h2>
-                    <form name="tambahanggota" method="POST" action="{{ url_for('edit_pegawai', id_pegawai=pegawai.id_pegawai) }}">
+                    <h2 class="text-center mb-3">Edit Data Dokter</h2>
+                    <form name="tambahanggota" method="POST" action="{{ url_for('edit_dokter', id_dokter=dokter.id_dokter) }}">
                         <div class="row mb-3">
-                            <label for="id_pegawai" class="col-sm-2 col-form-label">ID Pegawai</label>
+                            <label for="id_dokter" class="col-sm-2 col-form-label">ID Dokter</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="id_pegawai" name="id_pegawai" value="{{ pegawai.id_pegawai }}">
+                                <input type="text" class="form-control" id="id_dokter" name="id_dokter" value="{{ dokter.id_dokter }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="name" class="col-sm-2 col-form-label">Nama</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name" name="name" value="{{ pegawai.name }}">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ dokter.name }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="telepon" class="col-sm-2 col-form-label">No Telepon</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control" id="telepon" name="telepon" value="{{ pegawai.telepon }}">
+                                <input type="number" class="form-control" id="telepon" name="telepon" value="{{ dokter.telepon }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="email" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="email" name="email" value="{{ pegawai.email }}">
+                                <input type="email" class="form-control" id="email" name="email" value="{{ dokter.email }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="posisi" class="col-sm-2 col-form-label">Posisi</label>
+                            <label for="poli" class="col-sm-2 col-form-label">Nama Poli</label>
                             <div class="col-sm-10">
-                                <select class="form-select" aria-label="Default select example" id="posisi"
-                                    name="posisi" value="{{ pegawai.posisi }}">
-                                    <option selected>--Pilih Posisi--</option>
-                                    <option value="Administrasi">Administrasi</option>
-                                    <option value="Apoteker">Apoteker</option>
-                                    <option value="Staff IT">Staff IT</option>
-                                    <option value="Teknisi Lab">Teknisi Lab</option>
-                                    <option value="Humas">Humas</option>
-                                    <option value="Kasir">Kasir</option>
-                                    <option value="Gizi">Gizi</option>
-                                    <option value="Kesehatan Lingkungan">Kesehatan Lingkungan</option>
-                                    <option value="Security">Security</option>
-                                    <option value="Cleaning Service">Cleaning Service</option>
+                                <select class="form-select" aria-label="Default select example" id="poli"
+                                    name="poli" value="{{ dokter.poli }}">
+                                    <option selected>--Pilih Poli--</option>
+                                    <option value="Poli Umum">Poliklinik Umum</option>
+                                    <option value="Poli Anak">Poliklinik Anak</option>
+                                    <option value="Poli Gigi">Poliklinik Gigi</option>
+                                    <option value="Poli Bedah">Poliklinik Bedah</option>
+                                    <option value="Poli Penyakit Dalam">Poliklinik Penyakit Dalam</option>
+                                    <option value="Poli Mata">Poliklinik Mata</option>
+                                    <option value="Poli Kandungan">Poliklinik Kandungan</option>
+                                    <option value="Poli JIwa">Poliklinik Jiwa</option>
+                                    <option value="Poli Jantung">Poliklinik Jantung</option>
+                                    <option value="Poli Paru">Poliklinik Paru</option>
+                                    <option value="Poli Psikologi">Poliklinik Psikologi</option>
                                 </select>
                             </div>
                         </div>
@@ -201,7 +202,7 @@
                             <label for="shift" class="col-sm-2 col-form-label">Shift</label>
                             <div class="col-sm-10">
                                 <select class="form-select" aria-label="Default select example" id="shift"
-                                    name="shift" value="{{ pegawai.shift }}">
+                                    name="shift" value="{{ dokter.shift }}">
                                     <option selected>--Pilih Shift--</option>
                                     <option value="Pagi">Shift Pagi</option>
                                     <option value="Siang">Shift Siang</option>
