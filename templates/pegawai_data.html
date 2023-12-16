@@ -7,6 +7,33 @@
     <link rel="stylesheet" href="style.css">
     <title>Data Pegawai</title>
 </head>
+<!-- Tambahkan skrip JavaScript untuk menampilkan data pegawai -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Ganti URL dengan URL API Anda
+        const apiUrl = 'http://localhost:5000/api/pegawai';
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('pegawaiTableBody');
+                data.forEach(pegawai => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${pegawai.id_pegawai}</td>
+                        <td>${pegawai.nama}</td>
+                        <td>${pegawai.no_telepon}</td>
+                        <td>${pegawai.email}</td>
+                        <td>${pegawai.posisi}</td>
+                        <td>${pegawai.shift}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    });
+</script>
+
 <style>
     body {
     background-color: #f8f9fa;

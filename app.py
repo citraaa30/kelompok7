@@ -2,6 +2,9 @@ import os
 from pymongo import MongoClient
 import jwt
 from datetime import datetime, timedelta
+from flask_restful import Resource
+from flask_restful import Api
+from flask_cors import CORS
 import time
 import hashlib
 import uuid
@@ -10,8 +13,9 @@ from flask import Flask, send_file, render_template, jsonify, request, redirect,
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+api = Api(app)
 
-MONGODB_CONNECTION_STRING = "mongodb+srv://citra:citra123@cluster0.64sqdbj.mongodb.net/?retryWrites=true&w=majority"
+MONGODB_CONNECTION_STRING = "mongodb+srv://kelompok7:citra123@cluster0.64sqdbj.mongodb.net/"
 client = MongoClient(MONGODB_CONNECTION_STRING)
 db = client.dbprojectakhir
 
@@ -101,6 +105,50 @@ def pegawai_absen():
 def pegawai_home():
     return render_template('pegawai_home.html')
 
+class PegawaiDataResource(Resource):
+    def get(self):
+        # Ambil data pegawai dari MongoDB
+        data_pegawai = list(db.pegawai.find({}, {"_id": 0}))
+        return {"pegawai_data": pegawai_data}
+
+    def post(self):
+        # Terima data pegawai dari permintaan POST
+        pegawai_baru = request.json
+
+        # Simpan pegawai baru ke MongoDB
+        db.pegawai.insert_one(pegawai_baru)
+
+        return {"message": "Pegawai berhasil ditambahkan"}
+
+api.add_resource(PegawaiDataResource, '/api/pegawai_data')
+
+@app.route('/pegawai_tambah', methods=['GET', 'POST'])
+def pegawai_tambah():
+    if request.method == 'POST':
+        # Terima data pegawai dari formulir
+        id_pegawai = request.form.get('id_dokter')
+        nama = request.form.get('name')
+        no_telepon = request.form.get('NoTelp')
+        email = request.form.get('email')
+        posisi = request.form.get('poli')
+        shift = request.form.get('shift')
+
+        # Simpan pegawai baru ke MongoDB
+        pegawai_baru = {
+            "id": id_pegawai,
+            "nama": nama,
+            "no_telepon": no_telepon,
+            "email": email,
+            "posisi": posisi,
+            "shift": shift
+        }
+        db.pegawai.insert_one(pegawai_baru)
+
+        # Redirect ke laman pegawai_data setelah submit
+        return redirect(url_for('pegawai_data'))
+
+    return render_template('pegawai_tambah.html')
+
 @app.route('/dokter_absen')
 def dokter_absen():
     return render_template('dokter_absen.html')
@@ -117,43 +165,5 @@ def dokter_edit():
 def dokter_home():
     return render_template('dokter_home.html')
 
-app.route('/tambah_dokter_page')
-def tambah_dokter_page():
-    return render_template('dokter_tambah.html')
-
-# Endpoint untuk menambahkan data dokter
-@app.route('/tambah_dokter', methods=['POST'])
-def tambah_dokter():
-    if request.method == 'POST':
-        # Dapatkan data dari formulir HTML
-        id_dokter = request.form.get('id_dokter')
-        name = request.form.get('name')
-        NoTelp = request.form.get('NoTelp')
-        email = request.form.get('email')
-        poli = request.form.get('poli')
-        shift = request.form.get('shift')
-
-        # Validasi data
-        if not (id_dokter and name and NoTelp and email and poli and shift):
-            return jsonify({'error': 'Semua kolom harus diisi'}), 400
-
-        # Buat objek dokter
-        dokter = {
-            'id_dokter': id_dokter,
-            'name': name,
-            'NoTelp': NoTelp,
-            'email': email,
-            'poli': poli,
-            'shift': shift,
-            'timestamp': datetime.now()
-        }
-
-        # Masukkan data dokter ke koleksi MongoDB
-        koleksi_dokter = db.dokter
-        result = koleksi_dokter.insert_one(dokter)
-
-        # Kembalikan respons sukses
-        return jsonify({'message': 'Data dokter berhasil ditambahkan', 'dokter_id': str(result.inserted_id)})
-
-if __name__ == "__main__":
-    app.run("0.0.0.0", port=5000, debug=True)
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
