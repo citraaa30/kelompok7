@@ -110,9 +110,34 @@ def pegawai():
     pegawai = db.pegawai.find()
     return render_template('pegawai.html', pegawai=pegawai)
 
-@app.route('/pegawai_edit')
-def pegawai_edit():
-    return render_template('pegawai_edit.html')
+def get_pegawai(id_pegawai):
+    return db.pegawai.find_one({'id_pegawai': id_pegawai})
+
+def update_pegawai(id_pegawai, updated_data):
+    db.pegawai.update_one({'id_pegawai': id_pegawai}, {'$set': updated_data})
+
+@app.route('/edit/<id_pegawai>', methods=['GET', 'POST'])
+def edit_pegawai(id_pegawai):
+    if request.method == 'POST':
+        updated_data = {
+            'id_pegawai': request.form['id_pegawai'],
+            'name': request.form['name'],
+            'telepon': request.form['telepon'],
+            'email': request.form['email'],
+            'posisi': request.form['posisi'],
+            'shift': request.form['shift']
+        }
+        update_pegawai(id_pegawai, updated_data)
+        return redirect(url_for('pegawai'))
+    
+    pegawai = get_pegawai(id_pegawai)
+
+    return render_template('edit_pegawai.html', pegawai=pegawai)
+
+@app.route('/delete/<id_pegawai>')
+def delete_pegawai(id_pegawai):
+    db.pegawai.delete_one({'id_pegawai': id_pegawai})
+    return redirect(url_for('pegawai'))
 
 
 @app.route('/pegawai_absen')
