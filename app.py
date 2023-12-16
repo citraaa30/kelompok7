@@ -192,9 +192,35 @@ def dokter():
     dokter = db.dokter.find()
     return render_template('dokter.html', dokter=dokter)
 
-@app.route('/dokter_edit')
-def dokter_edit():
-    return render_template('dokter_edit.html')
+def get_dokter(id_dokter):
+    return db.dokter.find_one({'id_dokter': id_dokter})
+
+def update_dokter(id_dokter, updated_data):
+    db.dokter.update_one({'id_dokter': id_dokter}, {'$set': updated_data})
+
+@app.route('/edit/<id_dokter>', methods=['GET', 'POST'])
+def edit_dokter(id_dokter):
+    if request.method == 'POST':
+        updated_data = {
+            'id_dokter': request.form['id_dokter'],
+            'name': request.form['name'],
+            'telepon': request.form['telepon'],
+            'email': request.form['email'],
+            'poli': request.form['poli'],
+            'shift': request.form['shift']
+        }
+        update_dokter(id_dokter, updated_data)
+        return redirect(url_for('dokter'))
+    
+    dokter = get_dokter(id_dokter)
+
+    return render_template('edit_dokter.html', dokter=dokter)
+
+@app.route('/delete/<id_dokter>')
+def delete_dokter(id_dokter):
+    db.dokter.delete_one({'id_dokter': id_dokter})
+    return redirect(url_for('dokter'))
+    
 
 @app.route('/dokter_home')
 def dokter_home():

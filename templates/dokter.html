@@ -59,13 +59,14 @@
                     <th>{{ dokter.poli }}</th>
                     <th>{{ dokter.shift }}</th>
                     <th>
-                        <a href="#" class="btn btn-primary">Edit</a>
-                        <a href="#" class="btn btn-danger">Delete</a>
+                        <a href="{{ url_for('edit_dokter', id_dokter=dokter.id_dokter) }}" class="btn btn-primary">Edit</a>
+                        <a href="{{ url_for('delete_dokter', id_dokter=dokter.id_dokter) }}" class="btn btn-danger">Delete</a>
                     </th>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <a href="{{ url_for('tambah_dokter_page') }}" class="btn btn-primary">Kembali Ke Home</a>
     </div>
 
 </body>
