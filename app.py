@@ -89,7 +89,7 @@ def absen():
 def layanan():
     return render_template('layanan.html')
 
-app.route('/tambah_pegawai_page')
+@app.route('/tambah_pegawai_page')
 def tambah_pegawai_page():
     return render_template('tambah_pegawai.html')
 
@@ -196,7 +196,7 @@ def pegawai_absen():
 def dokter_absen():
     return render_template('dokter_absen.html')
 
-app.route('/tambah_dokter_page')
+@app.route('/tambah_dokter_page')
 def tambah_dokter_page():
     return render_template('tambah_dokter.html')
 
