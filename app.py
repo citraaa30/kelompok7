@@ -200,6 +200,7 @@ def dokter_absen():
 def tambah_dokter_page():
     return render_template('tambah_dokter.html')
 
+# Endpoint untuk menambahkan data dokter
 @app.route('/dokter', methods=['GET', 'POST'])
 def dokter():
     if request.method == 'POST':
@@ -245,6 +246,7 @@ def edit_dokter(id_dokter):
 def delete_dokter(id_dokter):
     db.dokter.delete_one({'id_dokter': id_dokter})
     return redirect(url_for('dokter'))
+
     
 
 @app.route('/dokter_home')
