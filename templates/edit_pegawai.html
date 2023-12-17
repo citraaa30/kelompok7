@@ -13,11 +13,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
-    <title>Form Tambah Data</title>
+    <title>Form Edit Data</title>
 
     <style>
         body {
-            background-image: url("../static/background.jpg");
+            background-image: url("../static/bg.jpg");
             background-blend-mode: multiply;
             background-position: center;
             background-size: cover;
@@ -118,10 +118,10 @@
                 <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
                     <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
                         <li class="nav-item mx-2">
-                            <a class="nav-link active" aria-current="page" href="#">Dokter</a>
+                            <a class="nav-link" aria-current="page" href="#">Dokter</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link" href="#pegawai">Pegawai</a>
+                            <a class="nav-link active" href="#pegawai">Pegawai</a>
                         </li>
                         <li class="nav-item mx-2">
                             <a class="nav-link" href="#absen">Absen</a>
@@ -147,33 +147,33 @@
 
             <div class="row justify-content-center" style="padding-top: 150px;">
                 <div class="col-12 col-sm-6 bg-white m-auto" style="padding-bottom: 10px; border-radius: 16px;">
-                    <h2 class="text-center mb-3">Tambahkan Data Pegawai</h2>
-                    <form name="tambahanggota" method="POST" action="{{ url_for('edit_pegawai', id_pegawai=pegawai.id_pegawai) }}">
+                    <h2 class="text-center mb-3">Edit Data Pegawai</h2>
+                    <form name="tambahanggota" action="#">
                         <div class="row mb-3">
                             <label for="id_pegawai" class="col-sm-2 col-form-label">ID Pegawai</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="id_pegawai" name="id_pegawai" value="{{ pegawai.id_pegawai }}">
+                                <input type="text" class="form-control" id="id_pegawai" name="id_pegawai">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="name" class="col-sm-2 col-form-label">Nama</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name" name="name" value="{{ pegawai.name }}">
+                                <input type="text" class="form-control" id="name" name="name">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="telepon" class="col-sm-2 col-form-label">No Telepon</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control" id="telepon" name="telepon" value="{{ pegawai.telepon }}">
+                                <input type="number" class="form-control" id="telepon" name="telepon">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="email" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="email" name="email" value="{{ pegawai.email }}">
+                                <input type="email" class="form-control" id="email" name="email">
                             </div>
                         </div>
 
@@ -181,18 +181,18 @@
                             <label for="posisi" class="col-sm-2 col-form-label">Posisi</label>
                             <div class="col-sm-10">
                                 <select class="form-select" aria-label="Default select example" id="posisi"
-                                    name="posisi" value="{{ pegawai.posisi }}">
+                                    name="posisi">
                                     <option selected>--Pilih Posisi--</option>
-                                    <option value="Administrasi">Administrasi</option>
-                                    <option value="Apoteker">Apoteker</option>
-                                    <option value="Staff IT">Staff IT</option>
-                                    <option value="Teknisi Lab">Teknisi Lab</option>
-                                    <option value="Humas">Humas</option>
-                                    <option value="Kasir">Kasir</option>
-                                    <option value="Gizi">Gizi</option>
-                                    <option value="Kesehatan Lingkungan">Kesehatan Lingkungan</option>
-                                    <option value="Security">Security</option>
-                                    <option value="Cleaning Service">Cleaning Service</option>
+                                    <option value="1">Administrasi</option>
+                                    <option value="2">Apoteker</option>
+                                    <option value="3">Staff IT</option>
+                                    <option value="4">Teknisi Lab</option>
+                                    <option value="5">Humas</option>
+                                    <option value="6">Kasir</option>
+                                    <option value="7">Gizi</option>
+                                    <option value="8">Kesehatan Lingkungan</option>
+                                    <option value="9">Security</option>
+                                    <option value="10">Cleaning Service</option>
                                 </select>
                             </div>
                         </div>
@@ -201,16 +201,16 @@
                             <label for="shift" class="col-sm-2 col-form-label">Shift</label>
                             <div class="col-sm-10">
                                 <select class="form-select" aria-label="Default select example" id="shift"
-                                    name="shift" value="{{ pegawai.shift }}">
+                                    name="shift">
                                     <option selected>--Pilih Shift--</option>
-                                    <option value="Pagi">Shift Pagi</option>
-                                    <option value="Siang">Shift Siang</option>
-                                    <option value="Malam">Shift Malam</option>
+                                    <option value="1">Shift Pagi</option>
+                                    <option value="2">Shift Siang</option>
+                                    <option value="3">Shift Malam</option>
 
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-success">Save</button>
                     </form>
                 </div>
             </div>

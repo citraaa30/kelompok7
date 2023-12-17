@@ -139,7 +139,6 @@ def delete_pegawai(id_pegawai):
     db.pegawai.delete_one({'id_pegawai': id_pegawai})
     return redirect(url_for('pegawai'))
 
-
 @app.route('/pegawai_absen')
 def pegawai_absen():
     return render_template('pegawai_absen.html')
