@@ -3,98 +3,70 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-AU-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="static/style.css" rel="stylesheet">
+
+    <style>
+        .mycards {
+            margin: 5px auto;
+            max-width: 700px;
+            padding-top: 95px;
+        }
+
+        .card-img-top {
+            max-height: 500px; 
+            object-fit: cover;
+        }
+
+    </style>
+
     <title>Rumah Sakit</title>
 </head>
-<style>
-    .mycards {
-            margin: 10px auto 10px auto;
-            width: 95%;
-            max-width: 1200px;
-    }
-</style>
 
-<body>
+<body class="vh-100 overflow-hidden">
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <!-- Navbar content... -->
+    </nav>
+    <br>
+    <br>
+    <br>
+    <br>
 
-    <body class="vh-100 overflow-hidden">
-        <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="container">
-                <a class="navbar-brand fs-4" href="/">Rumah Sakitku</a>
-                <!-- Toogle Btn -->
-                <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Side Bar -->
-                <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                    aria-labelledby="offcanvasNavbarLabel">
-                    <!-- Sidebar header -->
-
-                    <div class="offcanvas-header text-white border-bottom">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Rumah Sakitku</h5>
-                        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
-                            aria-label="Close"></button>
+    <main>
+        <div class="container mycards">
+            <div class="row row-cols-1 row-cols-md-2 g-6" id="cards-box">
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="static/perawat.jpg" class="card-img-top" alt="Perawat Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Pegawai</h5>
+                            <p class="card-text mycomment">Shift Pagi Shift Siang Shift Malam Shift Fleksibel atau
+                                Bergantian</p>
+                        </div>
                     </div>
-
-                    <!-- sidebar body -->
-                    <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
-                        <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
-                            <li class="nav-item mx-2">
-                                <a class="nav-link" href="/">Beranda</a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a class="nav-link" href="/layanan">Layanan</a>
-                            </li>
-                        </ul>
-
-                        <!-- Login/ Sign Up -->
-                        <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
-                            <a href="/login" class="text-white text-decoration-none px-3 py-1 rounded-4"
-                                style="background-color: #8bd2f3 ;">Login</a>
-                            <a href="/register" class="text-white text-decoration-none px-3 py-1 rounded-4"
-                                style="background-color: #bbd9f4;">Sign Up</a>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="static/dokter.jpg" class="card-img-top" alt="Dokter Image">
+                        <div class="card-body">
+                            <h5 class="card-title">Dokter</h5>
+                            <p class="card-text mycomment">Jadwal Harian Jadwal Shift di Unit Gawat Darurat (UGD)
+                                Jadwal Shift di Unit Rawat Inap Jadwal OperasiJadwal Konsultasi dan Pertemuan Tim
+                                Medis</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </nav>
-        <br>
-        <br>
-        <br>
-        <br>
+        </div>
+    </main>
 
-        <main>
-            <div class="mycards">
-                <div class="row row-cols-1 row-cols-md-2 g-6" id="cards-box">
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="static/perawat.jpg"
-                                class="card-img-top">
-                                <h5 class="card-title">Pegawai</h5>
-                                <p class="mycomment">Shift Pagi Shift Siang Shift Malam Shift Fleksibel atau Bergantian</p>
-                        </div>
-                    </div>
-                            <div class="col">
-                                <div class="card h-100">
-                                    <img src="static/dokter.jpg"
-                                        class="card-img-top">
-                                        <h5 class="card-title">Dokter</h5>
-                                        <p class="mycomment">Jadwal Harian Jadwal Shift di Unit Gawat Darurat (UGD) Jadwal Shift di Unit Rawat Inap Jadwal OperasiJadwal Konsultasi dan Pertemuan Tim Medis </p>
-                                </div>
-                            </div>
-        </main>
+    <!-- Bootstrap JS and other scripts... -->
 
-
-
-
-
-    </body>
+</body>
 
 </html>
