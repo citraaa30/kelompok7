@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/style.css">
     <title>Data Dokter</title>
 </head>
 <style>
@@ -20,11 +20,12 @@
         background-color: #f8f9fa;
     }
 
-    .container {
+    .table-data {
         background-color: #ffffff;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding-top: 100px;
     }
 
     .table th,
@@ -33,9 +34,56 @@
     }
 </style>
 
-<body>
+<body class="vh-100 overflow-hidden">
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand fs-4" href="#">Rumah Sakitku</a>
+            <!-- Toogle Btn -->
+            <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    <div class="container mt-5">
+            <!-- Side Bar -->
+            <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <!-- Sidebar header -->
+
+                <div class="offcanvas-header text-white border-bottom">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Rumah Sakitku</h5>
+                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
+                        aria-label="Close"></button>
+                </div>
+
+                <!-- sidebar body -->
+                <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
+                    <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
+                        <li class="nav-item mx-2">
+                            <a class="nav-link" href="#absen">Dokter</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link active" aria-current="page" href="#">Pegawai</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link" href="#absen">Absen</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link" href="#rekap">Rekap Absen</a>
+                        </li>
+
+                    </ul>
+
+                    <!-- Login/ Sign Up -->
+                    <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
+                        <a href="#login" class="text-white text-decoration-none px-3 py-1 rounded-4"
+                            style="background-color: #00b383;">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="table-data mt-5">
         <h2>Data Dokter</h2>
         <table class="table">
             <thead>

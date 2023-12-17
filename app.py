@@ -116,7 +116,7 @@ def get_pegawai(id_pegawai):
 def update_pegawai(id_pegawai, updated_data):
     db.pegawai.update_one({'id_pegawai': id_pegawai}, {'$set': updated_data})
 
-@app.route('/edit/<id_pegawai>', methods=['GET', 'POST'])
+@app.route('/edit_pegawai/<id_pegawai>', methods=['GET', 'POST'])
 def edit_pegawai(id_pegawai):
     if request.method == 'POST':
         updated_data = {
@@ -134,7 +134,7 @@ def edit_pegawai(id_pegawai):
 
     return render_template('edit_pegawai.html', pegawai=pegawai)
 
-@app.route('/delete/<id_pegawai>')
+@app.route('/delete_pegawai/<id_pegawai>')
 def delete_pegawai(id_pegawai):
     db.pegawai.delete_one({'id_pegawai': id_pegawai})
     return redirect(url_for('pegawai'))
@@ -223,7 +223,7 @@ def get_dokter(id_dokter):
 def update_dokter(id_dokter, updated_data):
     db.dokter.update_one({'id_dokter': id_dokter}, {'$set': updated_data})
 
-@app.route('/edit/<id_dokter>', methods=['GET', 'POST'])
+@app.route('/edit_dokter/<id_dokter>', methods=['GET', 'POST'])
 def edit_dokter(id_dokter):
     if request.method == 'POST':
         updated_data = {
@@ -241,7 +241,7 @@ def edit_dokter(id_dokter):
 
     return render_template('edit_dokter.html', dokter=dokter)
 
-@app.route('/delete/<id_dokter>')
+@app.route('/delete_dokter/<id_dokter>')
 def delete_dokter(id_dokter):
     db.dokter.delete_one({'id_dokter': id_dokter})
     return redirect(url_for('dokter'))
