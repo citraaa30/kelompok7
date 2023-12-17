@@ -25,7 +25,7 @@
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding-top: 100px;
+
     }
 
     .table th,
@@ -59,10 +59,10 @@
                 <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
                     <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
                         <li class="nav-item mx-2">
-                            <a class="nav-link" href="#absen">Dokter</a>
+                            <a class="nav-link active" aria-current="page" href="#absen">Dokter</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link active" aria-current="page" href="#">Pegawai</a>
+                            <a class="nav-link" href="#">Pegawai</a>
                         </li>
                         <li class="nav-item mx-2">
                             <a class="nav-link" href="#absen">Absen</a>
@@ -83,40 +83,43 @@
         </div>
     </nav>
 
-    <div class="table-data mt-5">
-        <h2>Data Dokter</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID Dokter</th>
-                    <th>Nama</th>
-                    <th>No Telepon</th>
-                    <th>Email</th>
-                    <th>Poli</th>
-                    <th>Shift</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for dokter in dokter %}
-                <tr>
-                    <th>{{ dokter.id_dokter }}</th>
-                    <th>{{ dokter.name }}</th>
-                    <th>{{ dokter.telepon }}</th>
-                    <th>{{ dokter.email }}</th>
-                    <th>{{ dokter.poli }}</th>
-                    <th>{{ dokter.shift }}</th>
-                    <th>
-                        <a href="{{ url_for('edit_dokter', id_dokter=dokter.id_dokter) }}" class="btn btn-primary">Edit</a>
-                        <a href="{{ url_for('delete_dokter', id_dokter=dokter.id_dokter) }}" class="btn btn-danger">Delete</a>
-                    </th>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <a href="{{ url_for('tambah_dokter_page') }}" class="btn btn-primary">Kembali Ke Home</a>
+    <div style="padding-top: 100px;">
+        <div class="table-data mt-5">
+            <h2>Data Dokter</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID Dokter</th>
+                        <th>Nama</th>
+                        <th>No Telepon</th>
+                        <th>Email</th>
+                        <th>Poli</th>
+                        <th>Shift</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dokter in dokter %}
+                    <tr>
+                        <th>{{ dokter.id_dokter }}</th>
+                        <th>{{ dokter.name }}</th>
+                        <th>{{ dokter.telepon }}</th>
+                        <th>{{ dokter.email }}</th>
+                        <th>{{ dokter.poli }}</th>
+                        <th>{{ dokter.shift }}</th>
+                        <th>
+                            <a href="{{ url_for('edit_dokter', id_dokter=dokter.id_dokter) }}"
+                                class="btn btn-primary">Edit</a>
+                            <a href="{{ url_for('delete_dokter', id_dokter=dokter.id_dokter) }}"
+                                class="btn btn-danger">Delete</a>
+                        </th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{{ url_for('tambah_dokter_page') }}" class="btn btn-primary">Kembali Ke Home</a>
+        </div>
     </div>
-
 </body>
 
 </html>

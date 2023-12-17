@@ -25,7 +25,6 @@
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding-top: 100px;
     }
 
     .table th,
@@ -83,40 +82,42 @@
         </div>
     </nav>
 
-    <div class="table-data mt-5">
-        <h2>Data Pegawai</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID Pegawai</th>
-                    <th>Nama</th>
-                    <th>No Telepon</th>
-                    <th>Email</th>
-                    <th>Posisi</th>
-                    <th>Shift</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for pegawai in pegawai %}
-                <tr>
-                    <th>{{ pegawai.id_pegawai }}</th>
-                    <th>{{ pegawai.name }}</th>
-                    <th>{{ pegawai.telepon }}</th>
-                    <th>{{ pegawai.email }}</th>
-                    <th>{{ pegawai.posisi }}</th>
-                    <th>{{ pegawai.shift }}</th>
-                    <th>
-                        <a href="{{ url_for('edit_pegawai', id_pegawai=pegawai.id_pegawai) }}"
-                            class="btn btn-primary">Edit</a>
-                        <a href="{{ url_for('delete_pegawai', id_pegawai=pegawai.id_pegawai) }}"
-                            class="btn btn-danger">Delete</a>
-                    </th>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <a href="{{ url_for('tambah_pegawai_page') }}" class="btn btn-primary">Kembali Ke Home</a>
+    <div style="padding-top: 100px;">
+        <div class="table-data mt-5">
+            <h2>Data Pegawai</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID Pegawai</th>
+                        <th>Nama</th>
+                        <th>No Telepon</th>
+                        <th>Email</th>
+                        <th>Posisi</th>
+                        <th>Shift</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pegawai in pegawai %}
+                    <tr>
+                        <th>{{ pegawai.id_pegawai }}</th>
+                        <th>{{ pegawai.name }}</th>
+                        <th>{{ pegawai.telepon }}</th>
+                        <th>{{ pegawai.email }}</th>
+                        <th>{{ pegawai.posisi }}</th>
+                        <th>{{ pegawai.shift }}</th>
+                        <th>
+                            <a href="{{ url_for('edit_pegawai', id_pegawai=pegawai.id_pegawai) }}"
+                                class="btn btn-primary">Edit</a>
+                            <a href="{{ url_for('delete_pegawai', id_pegawai=pegawai.id_pegawai) }}"
+                                class="btn btn-danger">Delete</a>
+                        </th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{{ url_for('tambah_pegawai_page') }}" class="btn btn-primary">Kembali Ke Home</a>
+        </div>
     </div>
 
 </body>
