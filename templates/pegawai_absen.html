@@ -10,7 +10,31 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet">
-    <title>Rumah Sakit</title>
+    <title>Absensi Pegawai</title>
+    <script>
+        function showAlert(message) {
+            alert(message + ' berhasil');
+        }
+
+        function updateDate() {
+            var currentDate = new Date();
+            var options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            var formattedDate = currentDate.toLocaleDateString('id-ID', options);
+
+            // Update elemen HTML dengan ID 'currentDate'
+            document.getElementById('currentDate').innerText = formattedDate;
+        }
+
+        // Panggil fungsi updateDate saat halaman dimuat
+        window.onload = function () {
+            updateDate();
+        };
+    </script>
 </head>
 
 <body>
@@ -39,7 +63,7 @@
                     <!-- sidebar body -->
                     <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
                         <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
-                           
+
                             <li class="nav-item mx-2">
                                 <a class="nav-link" href="#layanan">Profile</a>
                             </li>
@@ -53,7 +77,7 @@
                         <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
                             <a href="#logout" class="text-white text-decoration-none px-3 py-1 rounded-4"
                                 style="background-color: #8bd2f3 ;">Logout</a>
-                    
+
                         </div>
                     </div>
                 </div>
@@ -63,81 +87,37 @@
         <br>
         <br>
 
-        
-    <main>
-        <h1 class="text-center">Selamat Datang, Pegawai</h1>
-        <p class="text-center">Silahkan Lakukan Absensi Harian</p>
-        <div class="card col-md-8 mx-auto" style="width: 25rem;">
-            <div class="card-body">
+        <main>
+            <h1 class="text-center">Selamat Datang, Pegawai</h1>
+            <p class="text-center">Silahkan Lakukan Absensi Harian</p>
+            <div class="card col-md-8 mx-auto" style="width: 25rem;">
+                <div class="card-body">
                     <center>
-                        <h5 class="card-title"><p class="text-decoration-underline" id="tanggalText"></p></h5>
+                        <h5 class="card-title">
+                            <p id="currentDate" class="text-center"></p>
+                        </h5>
                     </center>
                     <div class="row">
                         <div class="col-md-7">
-                            <input type="hidden" name="tanggal" value="Rabu, 6 Desember 2023">
-                            <input type="hidden" name="jenis_absen" value="Masuk">
-                            <button class="btn btn-primary" id="absenMasukBtn">Absen Masuk</button>
+                            <!-- Tambahkan form untuk Absen Masuk -->
+                            <form action="{{ url_for('absen_masuk_pegawai') }}" method="POST">
+                                <button type="submit" class="btn btn-primary" onclick="showAlert('Absen Masuk')">Absen
+                                    Masuk</button>
+                            </form>
                         </div>
                         <div class="col-md-5">
-                            <input type="hidden" name="tanggal" value="Rabu, 6 Desember 2023">
-                            <input type="hidden" name="jenis_absen" value="Pulang">
-                            <button class="btn btn-primary" id="absenPulangBtn">Absen Pulang</button>
+                            <!-- Tambahkan form untuk Absen Pulang -->
+                            <form action="{{ url_for('absen_pulang_pegawai') }}" method="POST">
+                                <button type="submit" class="btn btn-primary" onclick="showAlert('Absen Pulang')">Absen
+                                    Pulang</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-                </form>
             </div>
-        </div>
-    </main>
-
-    <script>
-        document.getElementById('absenMasukBtn').addEventListener('click', function () {
-            // Kirim permintaan POST ke server Flask untuk melakukan absen masuk
-            sendAbsenRequest('masuk');
-        });
-    
-        document.getElementById('absenPulangBtn').addEventListener('click', function () {
-            // Kirim permintaan POST ke server Flask untuk melakukan absen pulang
-            sendAbsenRequest('pulang');
-        });
-    
-        function sendAbsenRequest(jenisAbsen) {
-            fetch(`/api/absen/${jenisAbsen}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({}),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // Tampilkan pesan atau lakukan tindakan lainnya
-                    alert(data.message);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-    
-    var tanggalSekarang = new Date();
-
-    // Mendapatkan hari dalam bahasa Inggris
-    var options = { weekday: 'long' };
-    var hari = new Intl.DateTimeFormat('en-US', options).format(tanggalSekarang);
-
-    // Mendapatkan tanggal, bulan, dan tahun
-    var tanggal = tanggalSekarang.getDate();
-    var bulan = tanggalSekarang.toLocaleString('en-US', { month: 'long' });
-    var tahun = tanggalSekarang.getFullYear();
-
-    // Menampilkan tanggal dengan format yang sesuai
-    var tanggalText = `${hari}, ${tanggal} ${bulan} ${tahun}`;
-    document.getElementById('tanggalText').innerText = tanggalText;
-    </script>
-</body>
-<!-- ... -->
 
 
+        </main>
 
     </body>
 
