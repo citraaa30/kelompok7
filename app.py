@@ -191,6 +191,50 @@ def pegawai_absen():
 
 #     return render_template('pegawai_tambah.html')
 
+@app.route('/jadwal_pegawai', methods=['GET', 'POST'])
+def jadwal_pegawai():
+    if request.method == 'POST':
+        name_pegawai = request.form['name_pegawai']
+        hari = request.form['hari']
+        tanggal = request.form['tanggal']
+        posisi = request.form['posisi']
+        shift = request.form['shift']
+ 
+        db.pegawai.insert_one({'name_pegawai': name_pegawai, 'hari': hari, 'tanggal': tanggal, 'posisi' : posisi, 'shift': shift})
+
+        return redirect(url_for('jadwal_pegawai'))
+
+    pegawai = db.pegawai.find()
+    return render_template('jadwal_pegawai.html', pegawai=pegawai)
+
+def get_jadwal_pegawai(name_pegawai):
+    return db.pegawai.find_one({'name_pegawai': name_pegawai})
+
+def update_jadwal_pegawai(name_pegawai, updated_data):
+    db.pegawai.update_one({'name_pegawai': name_pegawai}, {'$set': updated_data})
+
+@app.route('/tambah_jadpeg', methods=['GET', 'POST'])
+def tambah_jadpeg():
+    if request.method == 'POST':
+        name_pegawai = request.form['name_pegawai']
+        hari = request.form['hari']
+        tanggal = request.form['tanggal']
+        posisi = request.form['posisi']
+        shift = request.form['shift']
+ 
+        db.pegawai.insert_one({'name_pegawai': name_pegawai, 'hari': hari, 'tanggal': tanggal, 'posisi' : posisi, 'shift': shift})
+
+        return redirect(url_for('jadwal_pegawai'))
+
+    pegawai = db.pegawai.find()
+    return render_template('tambah_jadpeg.html', pegawai=pegawai)
+
+def get_tambah_jadpeg(name_pegawai):
+    return db.pegawai.find_one({'name_pegawai': name_pegawai})
+
+def update_tambah_jadpeg(name_pegawai, updated_data):
+    db.pegawai.update_one({'name_pegawai': name_pegawai}, {'$set': updated_data})
+
 @app.route('/dokter_absen')
 def dokter_absen():
     return render_template('dokter_absen.html')
@@ -251,6 +295,28 @@ def delete_dokter(id_dokter):
 @app.route('/dokter_home')
 def dokter_home():
     return render_template('dokter_home.html')
+
+@app.route('/tambah_jaddok', methods=['GET', 'POST'])
+def tambah_jaddok():
+    if request.method == 'POST':
+        name_dokter = request.form['name_dokter']
+        hari = request.form['hari']
+        tanggal = request.form['tanggal']
+        poli = request.form['poli']
+        shift = request.form['shift']
+ 
+        db.dokter.insert_one({'name_dokter': name_dokter, 'hari': hari, 'tanggal': tanggal, 'poli' : poli, 'shift': shift})
+
+        return redirect(url_for('jadwal_dokter'))
+
+    pegawai = db.dokter.find()
+    return render_template('tambah_jaddok.html', dokter=dokter)
+
+def get_tambah_jaddok(name_dokter):
+    return db.dokter.find_one({'name_dokter': name_dokter})
+
+def update_tambah_jaddok(name_dokter, updated_data):
+    db.dokter.update_one({'name_dokter': name_dokter}, {'$set': updated_data})
 
 if __name__ == "__main__":
     app.run("0.0.0.0", port=5000, debug=True)

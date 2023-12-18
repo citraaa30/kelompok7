@@ -13,7 +13,7 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../static/style.css">
-    <title>Data Dokter</title>
+    <title>Data Pegawai</title>
 </head>
 <style>
     body {
@@ -65,7 +65,7 @@
                             <a class="nav-link active" aria-current="page" href="/pegawai">Pegawai</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link" href="/absen">Absen</a>
+                            <a class="nav-link" href="/.absen">Absen</a>
                         </li>
                         <li class="nav-item mx-2">
                             <a class="nav-link" href="/rekap_absen">Rekap Absen</a>
@@ -84,37 +84,37 @@
     </nav>
 
     <div class="table-data mt-5">
-        <h2>Data Dokter</h2>
+        <h2>Jadwal Pegawai</h2>
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID Dokter</th>
-                    <th>Nama</th>
-                    <th>No Telepon</th>
-                    <th>Email</th>
-                    <th>Poli</th>
+                    <th>Nama Pegawai</th>
+                    <th>Hari</th>
+                    <th>Tanggal</th>
+                    <th>Posisi</th>
                     <th>Shift</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                {% for dokter in dokter %}
+                {% for pegawai in pegawai %}
                 <tr>
-                    <th>{{ dokter.id_dokter }}</th>
-                    <th>{{ dokter.name }}</th>
-                    <th>{{ dokter.telepon }}</th>
-                    <th>{{ dokter.email }}</th>
-                    <th>{{ dokter.poli }}</th>
-                    <th>{{ dokter.shift }}</th>
+                    <th>{{ pegawai.name_pegawai }}</th>
+                    <th>{{ pegawai.hari }}</th>
+                    <th>{{ pegawai.tanggal }}</th>
+                    <th>{{ pegawai.posisi }}</th>
+                    <th>{{ pegawai.shift }}</th>
                     <th>
-                        <a href="{{ url_for('edit_dokter', id_dokter=dokter.id_dokter) }}" class="btn btn-primary">Edit</a>
-                        <a href="{{ url_for('delete_dokter', id_dokter=dokter.id_dokter) }}" class="btn btn-danger">Delete</a>
+                        <a href="{{ url_for('edit_pegawai', id_pegawai=pegawai.id_pegawai) }}"
+                            class="btn btn-primary">Edit</a>
+                        <a href="{{ url_for('delete_pegawai', id_pegawai=pegawai.id_pegawai) }}"
+                            class="btn btn-danger">Delete</a>
                     </th>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="{{ url_for('tambah_dokter_page') }}" class="btn btn-primary">Kembali Ke Home</a>
+        <a href="{{ url_for('tambah_pegawai_page') }}" class="btn btn-primary">Kembali Ke Home</a>
     </div>
 
 </body>
