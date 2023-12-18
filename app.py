@@ -204,7 +204,7 @@ def absen_masuk_dokter():
     timestamp = datetime.now()
 
     db.absensi_dokter.insert_one({'id_dokter': id_dokter, 'absen_type': 'Masuk', 'timestamp': timestamp})
-    flash('Absen Masuk berhasil', 'success')
+   
 
     # Redirect ke halaman rekap_absen
     return redirect(url_for('rekap_absen_dokter'))
@@ -217,7 +217,7 @@ def absen_pulang_dokter():
     timestamp = datetime.now()
 
     db.absensi_dokter.insert_one({'id_dokter': id_dokter, 'absen_type': 'Pulang', 'timestamp': timestamp})
-    flash('Absen Pulang berhasil', 'success')
+    
 
     # Redirect ke halaman rekap_absen
     return redirect(url_for('rekap_absen_dokter'))
