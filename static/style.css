@@ -20,6 +20,10 @@ body {
     padding: 0.5rem;
 }
 
+.main{
+    padding-top: 100px;
+}
+
 .navbar-brand {
     font-weight: 500;
     color: #8bd2f3;

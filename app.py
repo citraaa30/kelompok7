@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from flask_restful import Resource
 from flask_restful import Api
 from flask_cors import CORS
+from flask import flash
 import time
 import hashlib
 import uuid
@@ -143,6 +144,42 @@ def delete_pegawai(id_pegawai):
 def pegawai_absen():
     return render_template('pegawai_absen.html')
 
+# Rute untuk absen masuk
+@app.route('/absen_masuk_pegawai', methods=['POST'])
+def absen_masuk_pegawai():
+    # Simpan data absen masuk ke database
+    id_pegawai = "id_pegawai"  # Ganti dengan id dokter yang sesuai
+    timestamp = datetime.now()
+
+    db.absensi_pegawai.insert_one({'id_pegawai': id_pegawai, 'absen_type': 'Masuk', 'timestamp': timestamp})
+   
+
+    # Redirect ke halaman rekap_absen
+    return redirect(url_for('rekap_absen_pegawai'))
+
+# Rute untuk absen pulang
+@app.route('/absen_pulang_pegawai', methods=['POST'])
+def absen_pulang_pegawai():
+    # Simpan data absen pulang ke database
+    id_pegawai = "id_pegawai"  # Ganti dengan id dokter yang sesuai
+    timestamp = datetime.now()
+
+    db.absensi_pegawai.insert_one({'id_pegawai': id_pegawai, 'absen_type': 'Pulang', 'timestamp': timestamp})
+    
+
+    # Redirect ke halaman rekap_absen
+    return redirect(url_for('rekap_absen_pegawai'))
+
+# Halaman rekap_absen
+@app.route('/rekap_absen_pegawai')
+def rekap_absen_pegawai():
+    # Dapatkan data absensi dari database (sesuaikan dengan struktur database Anda)
+    absensi_pegawai = db.absensi_pegawai.find()
+
+    # Render template rekap_absen.html dengan data absensi
+    return render_template('rekap_absen_pegawai.html', absensi_pegawai=absensi_pegawai)
+
+
 # @app.route('/pegawai_home')
 # def pegawai_home():
 #     return render_template('pegawai_home.html')
@@ -238,6 +275,41 @@ def update_tambah_jadpeg(name_pegawai, updated_data):
 @app.route('/dokter_absen')
 def dokter_absen():
     return render_template('dokter_absen.html')
+
+# Rute untuk absen masuk
+@app.route('/absen_masuk_dokter', methods=['POST'])
+def absen_masuk_dokter():
+    # Simpan data absen masuk ke database
+    id_dokter = "id_dokter"  # Ganti dengan id dokter yang sesuai
+    timestamp = datetime.now()
+
+    db.absensi_dokter.insert_one({'id_dokter': id_dokter, 'absen_type': 'Masuk', 'timestamp': timestamp})
+   
+
+    # Redirect ke halaman rekap_absen
+    return redirect(url_for('rekap_absen_dokter'))
+
+# Rute untuk absen pulang
+@app.route('/absen_pulang_dokter', methods=['POST'])
+def absen_pulang_dokter():
+    # Simpan data absen pulang ke database
+    id_dokter = "id_dokter"  # Ganti dengan id dokter yang sesuai
+    timestamp = datetime.now()
+
+    db.absensi_dokter.insert_one({'id_dokter': id_dokter, 'absen_type': 'Pulang', 'timestamp': timestamp})
+    
+
+    # Redirect ke halaman rekap_absen
+    return redirect(url_for('rekap_absen_dokter'))
+
+# Halaman rekap_absen
+@app.route('/rekap_absen_dokter')
+def rekap_absen_dokter():
+    # Dapatkan data absensi dari database (sesuaikan dengan struktur database Anda)
+    absensi_dokter = db.absensi_dokter.find()
+
+    # Render template rekap_absen.html dengan data absensi
+    return render_template('rekap_absen_dokter.html', absensi_dokter=absensi_dokter)
 
 @app.route('/tambah_dokter_page')
 def tambah_dokter_page():

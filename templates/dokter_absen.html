@@ -9,8 +9,32 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../static/style.css" rel="stylesheet">
     <title>Rumah Sakit</title>
+    <script>
+        function showAlert(message) {
+            alert(message + ' berhasil');
+        }
+
+        function updateDate() {
+            var currentDate = new Date();
+            var options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            var formattedDate = currentDate.toLocaleDateString('id-ID', options);
+
+            // Update elemen HTML dengan ID 'currentDate'
+            document.getElementById('currentDate').innerText = formattedDate;
+        }
+
+        // Panggil fungsi updateDate saat halaman dimuat
+        window.onload = function () {
+            updateDate();
+        };
+    </script>
 </head>
 
 <body>
@@ -39,12 +63,16 @@
                     <!-- sidebar body -->
                     <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
                         <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
-                           
+
                             <li class="nav-item mx-2">
                                 <a class="nav-link" href="/profile">Profile</a>
                             </li>
                             <li class="nav-item mx-2">
+<<<<<<< HEAD
                                 <a class="nav-link" href="/absen_dokter.html">Absen</a>
+=======
+                                <a class="nav-link" action="{{ url_for('dokter_absen') }}">Absen</a>
+>>>>>>> c3714065619f6711d0c83ef0015744dae2f02cbf
                             </li>
 
                         </ul>
@@ -53,7 +81,7 @@
                         <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3">
                             <a href="#logout" class="text-white text-decoration-none px-3 py-1 rounded-4"
                                 style="background-color: #8bd2f3 ;">Logout</a>
-                    
+
                         </div>
                     </div>
                 </div>
@@ -62,25 +90,38 @@
         <br>
         <br>
         <br>
-          
-        <main>
-            <h1 class="text-center">Selamat Datang, Dokter</h1>
-            <p class="text-center">Silahkan Lakukan Absensi Harian</p>
-            <div class="card col-md-8 mx-auto" style="width: 25rem;" >
+
+        <main class="main">
+            <h1 class="text-center text-white">Selamat Datang, Dokter</h1>
+            <p class="text-center text-white">Silahkan Lakukan Absensi Harian</p>
+            <div class="card col-md-8 mx-auto" style="width: 25rem;">
                 <div class="card-body">
-                  <center><h5 class="card-title"><p class="text-decoration-underline">Rabu, 6 Desember 2023</p></h5></center>
-                  <div class="row">
-                    <div class="col-md-7">
-                        <a href="#" class="btn btn-primary">Absen Masuk</a>
+                    <center>
+                        <h5 class="card-title">
+                            <p id="currentDate" class="text-center"></p>
+                        </h5>
+                    </center>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <!-- Tambahkan form untuk Absen Masuk -->
+                            <form action="{{ url_for('absen_masuk_dokter') }}" method="POST">
+                                <button type="submit" class="btn btn-primary" onclick="showAlert('Absen Masuk')">Absen
+                                    Masuk</button>
+                            </form>
+                        </div>
+                        <div class="col-md-5">
+                            <!-- Tambahkan form untuk Absen Pulang -->
+                            <form action="{{ url_for('absen_pulang_dokter') }}" method="POST">
+                                <button type="submit" class="btn btn-primary" onclick="showAlert('Absen Pulang')">Absen
+                                    Pulang</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="col-md-5">
-                        <a href="#" class="btn btn-primary">Absen Pulang</a>
-                    </div>
-              </div>
+                </div>
+            </div>
+
+
         </main>
-        
-
-
 
     </body>
 
