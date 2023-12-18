@@ -22,7 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;800&display=swap" rel="stylesheet">
 
     <style>
-        body {
+           body {
             background-image: url("../static/background.jpg");
             background-blend-mode: multiply;
             background-position: center;
@@ -32,15 +32,8 @@
 
         main {
             display: flex;
-            height: 50vh;
+            height: 60vh;
             margin: 120px;
-        }
-
-
-        .filter {
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.2);
         }
 
         .card {
@@ -69,7 +62,7 @@
             justify-content: space-around;
             border-radius: 1rem;
             box-shadow: 0 0 20px rgba(208, 208, 208, 0.984);
-            background-color: #fff;
+            background-color: aliceblue;
         }
 
         .logo img {
@@ -144,41 +137,95 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script>
-        function login() {
+        function is_name(asValue) {
+            var regExp = /\S+@\S+\.\S+/;
+            return regExp.test(asValue);
+        }
+
+        function is_email(asValue) {
+            var regExp = /\S+@\S+\.\S+/;
+            return regExp.test(asValue);
+        }
+
+        function is_password(asValue) {
+            var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{8,20}$/
+            return regExp.test(asValue)
+        }
+
+
+        function sign_up() {
+            let user = $('#email').val()
             let useremail = $('#email').val()
+            let username = $('#username').val()
             let password = $('#password').val()
 
-            if (useremail == '') {
-                $('#email').addClass('is-invalid')
-                $('#password').removeClass('is-invalid')
+            if (!is_email(useremail)) {
+                $("#useremail").addClass('is-invalid')
+                $("#alert_email").removeClass('d-none')
                 return
-            }
-            if (password == '') {
-                $('#email').removeClass('is-invalid')
-                $('#password').addClass('is-invalid')
+            } else if (username == "") {
+                $("#username").addClass('is-invalid')
+
+                $("#useremail").removeClass('is-invalid')
+                $("#alert_email").addClass('d-none')
                 return
+            } else if (!is_password(password)) {
+                $("#password").addClass('is-invalid')
+                $("#alert_password").removeClass('d-none')
+
+                $("#username").removeClass('is-invalid')
+                $("#useremail").removeClass('is-invalid')
+                $("#alert_email").addClass('d-none')
+                return
+            } else {
+                $("#username").removeClass('is-invalid')
+                $("#useremail").removeClass('is-invalid')
+                $("#password").removeClass('is-invalid')
+                $("#alert_email").addClass('d-none')
+                $("#alert_password").addClass('d-none')
             }
 
             $.ajax({
                 type: 'POST',
-                url: '/sign_in',
+                url: '/sign_up/check_email',
                 data: {
-                    useremail_give: useremail,
-                    password_give: password
+                    useremail_give: useremail
                 },
                 success: function (response) {
-                    if (response['result'] == 'success') {
-                        $.cookie("mytoken", response["token"], {
-                            path: "/"
-                        });
-                        window.location.replace("/");
-                    } else {
+                    if (response['exists']) {
                         Swal.fire({
-                            title: "Email atau Password Anda Salah!",
-                            icon: "error",
+                            icon: "warning",
+                            title: "Maaf, Email sudah terpakai",
                             showConfirmButton: false,
-                            timer: 3000
+                            timer: 2000
                         });
+                        return
+                    } else {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/sign_up/save',
+                            data: {
+                                useremail_give: useremail,
+                                username_give: username,
+                                password_give: password
+                            },
+                            success: function (response) {
+                                if (response['result'] === "success") {
+                                    Swal.fire({
+                                        title: "Selamat anda berhasil membuat akun!",
+                                        text: "Menuju ke halaman login!",
+                                        icon: "success",
+                                        showConfirmButton: false,
+                                        timer: 3000
+                                    });
+
+                                    // Menunda pengalihan halaman selama 3 detik
+                                    setTimeout(function () {
+                                        window.location.href = '/login';
+                                    }, 3000);
+                                }
+                            }
+                        })
                     }
                 }
             })
@@ -189,21 +236,31 @@
 <body>
     <main>
         <section class="card">
-            <h3>Sign In</h3>
+            <h3>Sign Up</h3>
             <div class="card-input">
-                <h6>Email</h6>
-                <div class="input-group">
+                <div class="input-group mt-3">
                     <span class="input-group-text"><i class="bi bi-envelope icon"></i></span>
-                    <input type="email" class="form-control" id="email" placeholder="Masukan Email">
+                    <input type="email" class="form-control" id="email" placeholder="e.g@example.com"><br>
                 </div>
-                <h6>Password</h6>
+                <p id="alert_email" style="margin:0 0 0 2%; color:red; font-size: x-small;font-weight:bold; display: block;"
+                    class="d-none">Format email anda tidak valid</p>
                 <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-lock icon"></i></span>
-                    <input type="password" class="form-control is-key" id="password" placeholder="Masukan password">
+                    <span class="input-group-text"><i class="bi bi-person-circle icon"></i></span>
+                    <input type="text" class="form-control" id="username" placeholder="Username">
                 </div>
-                <button onclick="login()" class="btn btn-primary">Login</button>
-                <div class="signup-link text-dark">Belum terdaftar ? <a href="/register">Sign Up</a></div>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-key icon"></i></span>
+                    <input type="password" class="form-control is-key" id="password" placeholder="Password"><br>
+                    <p id="alert_password" style="margin:1% 0 0 2% ;color:red;font-size: x-small;font-weight:bold;"
+                        class="d-none">Pasword harus terdiri dari 8 - 20 karakter yang mengandung huruf besar atau
+                        kecil, angka, dan boleh mengandung karakter (!@#$%^&*)</p>
+                </div>        
+                <hr>
+                <button onclick="sign_up()" class="btn btn-primary mb-1">Sign Up</button>
+                          
+                <a href="/"><button class="btn btn-secondary" style="width: 100%;">Kembali</button></a>
             </div>
+          
         </section>
     </main>
 </body>

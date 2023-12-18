@@ -21,49 +21,100 @@ client = MongoClient(MONGODB_CONNECTION_STRING)
 db = client.dbprojectakhir
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/login')
-def login():
-    return render_template('login.html')
+MONGODB_URI = os.environ.get("MONGODB_URI")
+DB_NAME =  os.environ.get("DB_NAME")
+SECRET_KEY = os.environ.get("SECRET_KEY")
+TOKEN_KEY = os.environ.get("TOKEN_KEY")
 
 
-@app.route('/register')
-def register():
-    return render_template('register.html')
+@app.route('/', methods=['GET']) # UNTUK HALAMAN INDEX
+def home():
+    token_receive = request.cookies.get(TOKEN_KEY)
+    try:
+        payload = jwt.decode(
+            token_receive,
+            SECRET_KEY,
+            algorithms=['HS256']
+        )
+        user_info = db.users.find_one({'useremail': payload.get('useremail')})
+        
+        if user_info is not None:
+            user_role = user_info.get('role', 'default_role')  # Set a default role if 'role' is not present
+            return render_template('index.html', user_role=user_role)
+        else:
+            # Handle the situation when the user is not found
+            return render_template('index.html', user_role='default_role')
 
-@app.route('/api/register', methods=['POST'])
-def api_register():
-    # Dapatkan data dari permintaan
-    first_name = request.form.get('first_name')
-    last_name = request.form.get('last_name')
-    email = request.form.get('email')
-    password = request.form.get('password')
-    confirm_password = request.form.get('confirm_password')
+    except jwt.ExpiredSignatureError:
+        msg = 'Your token has expired'
+        return redirect(url_for('halaman_login', msg=msg))
+    except jwt.exceptions.DecodeError:
+        msg = 'There was a problem logging you in'
+        return redirect(url_for('halaman_login', msg=msg))
 
-    # Validasi data
-    if not (first_name and last_name and email and password and confirm_password):
-        return jsonify({'error': 'Semua kolom harus diisi'}), 400
 
-    if password != confirm_password:
-        return jsonify({'error': 'Kata sandi tidak cocok'}), 400
+@app.route('/login', methods=['GET']) #UNTUK HALAMAN LOGIN
+def halaman_login():
+    msg = request.args.get('msg')
+    return render_template('login.html', msg =msg)
+    
+@app.route("/sign_in", methods=["POST"]) #UNTUK HALAMAN LOGIN
+def sign_in():
+    useremail_receive = request.form["useremail_give"]
+    password_receive = request.form["password_give"]
+    pw_hash = hashlib.sha256(password_receive.encode("utf-8")).hexdigest()
+    result = db.users.find_one(
+        {
+            "useremail": useremail_receive,
+            "password": pw_hash,
+        }
+    )
+    if result:
+        payload = {
+            "useremail": useremail_receive,
+            # the token will be valid for 24 hours
+            "exp": datetime.utcnow() + timedelta(seconds=60 * 60 * 24),
+        }
+        token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
 
-    # Buat objek pengguna
-    user = {
-        'first_name': first_name,
-        'last_name': last_name,
-        'email': email,
-        'password': password  # Catatan: Pada aplikasi nyata, sebaiknya mengenkripsi kata sandi
+        return jsonify(
+            {
+                "result": "success",
+                "token": token,
+            }
+        )
+    else:
+        return jsonify(
+            {
+                "result": "fail",
+                "msg": "Email atau Password anda tidak sesuai",
+            }
+        )
+
+@app.route('/register', methods=['GET']) #UNTUK HALAMAN SIGNUP
+def halaman_signup():
+    return render_template('signup.html')
+
+@app.route("/sign_up/save", methods=["POST"]) #UNTUK HALAMAN SIGNUP
+def sign_up():
+    useremail_receive = request.form['useremail_give']
+    username_receive = request.form['username_give']
+    password_receive = request.form['password_give']
+    password_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
+    doc = {
+        "useremail" : useremail_receive,
+        "username"  : username_receive,
+        "password"  : password_hash,
+       
     }
+    db.users.insert_one(doc)
+    return jsonify({'result': 'success'})
 
-    # Masukkan pengguna ke koleksi MongoDB
-    db = db.users
-    result = db.insert_one(user)
-
-    # Kembalikan respons sukses
-    return jsonify({'message': 'Registrasi berhasil', 'user_id': str(result.inserted_id)})
+@app.route('/sign_up/check_email', methods=['POST'])  #UNTUK HALAMAN SIGNUP
+def check_dup():
+    useremail_receive = request.form['useremail_give']
+    exists = bool(db.users.find_one({"useremail": useremail_receive}))
+    return jsonify({'result': 'success', 'exists': exists})
 
 @app.route('/pegawai_absen', methods=['GET'])
 def pegawai_absen_page():

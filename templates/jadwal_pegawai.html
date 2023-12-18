@@ -97,7 +97,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for pegawai in pegawai %}
+                
                 <tr>
                     <th>{{ pegawai.name_pegawai }}</th>
                     <th>{{ pegawai.hari }}</th>
@@ -111,7 +111,7 @@
                             class="btn btn-danger">Delete</a>
                     </th>
                 </tr>
-                {% endfor %}
+
             </tbody>
         </table>
         <a href="{{ url_for('tambah_pegawai_page') }}" class="btn btn-primary">Kembali Ke Home</a>
