@@ -97,12 +97,12 @@
                 </tr>
             </thead>
             <tbody>
-                {% for dokter in dokter_jadwal %}
+                {% for dokter in jadwal_dokter %}
                 <tr>
                     <th>{{ dokter.name_dokter }}</th>
                     <th>{{ dokter.hari }}</th>
                     <th>{{ dokter.tanggal }}</th>
-                    <th>{{ dokter.posisi }}</th>
+                    <th>{{ dokter.poli }}</th>
                     <th>{{ dokter.shift }}</th>
                     <th>
                         <a href="{{ url_for('edit_jaddok', name_dokter=dokter.name_dokter) }}"

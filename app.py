@@ -279,6 +279,10 @@ def rekap_absen_pegawai():
 
 #     return render_template('pegawai_tambah.html')
 
+@app.route('/tambah_jadpeg_page')
+def tambah_jadpeg_page():
+    return render_template('tambah_jadpeg.html')
+
 @app.route('/jadwal_pegawai', methods=['GET', 'POST'])
 def jadwal_pegawai():
     if request.method == 'POST':
@@ -288,40 +292,40 @@ def jadwal_pegawai():
         posisi = request.form['posisi']
         shift = request.form['shift']
  
-        db.pegawai.insert_one({'name_pegawai': name_pegawai, 'hari': hari, 'tanggal': tanggal, 'posisi' : posisi, 'shift': shift})
+        db.jadwal_pegawai.insert_one({'name_pegawai': name_pegawai, 'hari': hari, 'tanggal': tanggal, 'posisi' : posisi, 'shift': shift})
 
         return redirect(url_for('jadwal_pegawai'))
 
-    pegawai = db.pegawai.find()
-    return render_template('jadwal_pegawai.html', pegawai=pegawai)
+    jadwal_pegawai = db.jadwal_pegawai.find()
+    return render_template('jadwal_pegawai.html', jadwal_pegawai=jadwal_pegawai)
 
 def get_jadwal_pegawai(name_pegawai):
-    return db.pegawai.find_one({'name_pegawai': name_pegawai})
+    return db.jadwal_pegawai.find_one({'name_pegawai': name_pegawai})
 
 def update_jadwal_pegawai(name_pegawai, updated_data):
-    db.pegawai.update_one({'name_pegawai': name_pegawai}, {'$set': updated_data})
+    db.jadwal_pegawai.update_one({'name_pegawai': name_pegawai}, {'$set': updated_data})
 
-@app.route('/tambah_jadpeg', methods=['GET', 'POST'])
-def tambah_jadpeg():
+@app.route('/edit_jadpeg/<name_pegawai>', methods=['GET', 'POST'])
+def edit_jadpeg(name_pegawai):
     if request.method == 'POST':
-        name_pegawai = request.form['name_pegawai']
-        hari = request.form['hari']
-        tanggal = request.form['tanggal']
-        posisi = request.form['posisi']
-        shift = request.form['shift']
- 
-        db.pegawai.insert_one({'name_pegawai': name_pegawai, 'hari': hari, 'tanggal': tanggal, 'posisi' : posisi, 'shift': shift})
-
+        updated_data = {
+            'name_pegawai': request.form['name_pegawai'],
+            'hari': request.form['hari'],
+            'tanggal': request.form['tanggal'],
+            'posisi': request.form['posisi'],
+            'shift': request.form['shift']
+        }
+        update_jadwal_pegawai(name_pegawai, updated_data)
         return redirect(url_for('jadwal_pegawai'))
+    
+    jadwal_pegawai = get_jadwal_pegawai(name_pegawai)
 
-    pegawai = db.pegawai.find()
-    return render_template('tambah_jadpeg.html', pegawai=pegawai)
+    return render_template('edit_jadpeg.html', jadwal_pegawai=jadwal_pegawai)
 
-def get_tambah_jadpeg(name_pegawai):
-    return db.pegawai.find_one({'name_pegawai': name_pegawai})
-
-def update_tambah_jadpeg(name_pegawai, updated_data):
-    db.pegawai.update_one({'name_pegawai': name_pegawai}, {'$set': updated_data})
+@app.route('/delete_jadpeg/<name_pegawai>')
+def delete_jadpeg(name_pegawai):
+    db.jadwal_pegawai.delete_one({'name_pegawai': name_pegawai})
+    return redirect(url_for('jadwal_pegawai'))
 
 @app.route('/dokter_absen')
 def dokter_absen():
@@ -415,7 +419,7 @@ def delete_dokter(id_dokter):
 
     
 
-@app.route('/tambah_jaddook_page')
+@app.route('/tambah_jaddok_page')
 def tambah_jaddok_page():
     return render_template('tambah_jaddok.html')
 
@@ -460,7 +464,7 @@ def edit_jaddok(name_dokter):
 
 @app.route('/delete_jaddok/<name_dokter>')
 def delete_jaddok(name_dokter):
-    db.dokter_jadwal.delete_one({'name_dokter': name_dokter})
+    db.jadwal_dokter.delete_one({'name_dokter': name_dokter})
     return redirect(url_for('jadwal_dokter'))
 
 if __name__ == "__main__":

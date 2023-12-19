@@ -147,25 +147,25 @@
             <div class="row justify-content-center" style="padding-top: 150px;">
                 <div class="col-12 col-sm-6 bg-white m-auto" style="padding-bottom: 10px; border-radius: 16px;">
                     <h2 class="text-center mb-3">Tambahkan Jadwal Pegawai</h2>
-                    <form name="tambahanggota" action="/jadwal_pegawai" method="POST">
+                    <form name="tambahanggota" action="{{ url_for('edit_jadpeg', name_pegawai=jadwal_pegawai.name_pegawai) }}" method="POST">
                         <div class="row mb-3">
                             <label for="name" class="col-sm-2 col-form-label">Nama</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name" name="name_pegawai">
+                                <input type="text" class="form-control" id="name" name="name_pegawai" action="{{ jadwal_pegawai.name }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="telepon" class="col-sm-2 col-form-label">Hari</label>
                             <div class="col-sm-10">
-                                <input type="datetime" class="form-control" id="hari" name="hari">
+                                <input type="datetime" class="form-control" id="hari" name="hari" action="{{ jadwal_pegawai.hari }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="email" class="col-sm-2 col-form-label">Tanggal</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" id="tanggal" name="tanggal">
+                                <input type="date" class="form-control" id="tanggal" name="tanggal" action="{{ jadwal_pegawai.tanggal }}">
                             </div>
                         </div>
 
@@ -173,7 +173,7 @@
                             <label for="posisi" class="col-sm-2 col-form-label">Posisi</label>
                             <div class="col-sm-10">
                                 <select class="form-select" aria-label="Default select example" id="posisi"
-                                    name="posisi">
+                                    name="posisi" action="{{ jadwal_pegawai.posisi }}">
                                     <option selected>--Pilih Posisi--</option>
                                     <option value="Administrasi">Administrasi</option>
                                     <option value="Apotek">Apoteker</option>
@@ -193,7 +193,7 @@
                             <label for="shift" class="col-sm-2 col-form-label">Shift</label>
                             <div class="col-sm-10">
                                 <select class="form-select" aria-label="Default select example" id="shift"
-                                name="shift">
+                                name="shift" action="{{ jadwal_pegawai.shift }}">
                                 <option selected>--Pilih Shift--</option>
                                 <option value="Pagi">Shift Pagi</option>
                                 <option value="Siang">Shift Siang</option>
