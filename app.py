@@ -415,12 +415,12 @@ def delete_dokter(id_dokter):
 
     
 
-@app.route('/dokter_home')
-def dokter_home():
-    return render_template('dokter_home.html')
+@app.route('/tambah_jaddook_page')
+def tambah_jaddok_page():
+    return render_template('tambah_jaddok.html')
 
-@app.route('/tambah_jaddok', methods=['GET', 'POST'])
-def tambah_jaddok():
+@app.route('/jadwal_dokter', methods=['GET', 'POST'])
+def jadwal_dokter():
     if request.method == 'POST':
         name_dokter = request.form['name_dokter']
         hari = request.form['hari']
@@ -428,18 +428,40 @@ def tambah_jaddok():
         poli = request.form['poli']
         shift = request.form['shift']
  
-        db.dokter.insert_one({'name_dokter': name_dokter, 'hari': hari, 'tanggal': tanggal, 'poli' : poli, 'shift': shift})
+        db.jadwal_dokter.insert_one({'name_dokter': name_dokter, 'hari': hari, 'tanggal': tanggal, 'poli' : poli, 'shift': shift})
 
         return redirect(url_for('jadwal_dokter'))
 
-    pegawai = db.dokter.find()
-    return render_template('tambah_jaddok.html', dokter=dokter)
+    jadwal_dokter = db.jadwal_dokter.find()
+    return render_template('jadwal_dokter.html', jadwal_dokter=jadwal_dokter)
 
-def get_tambah_jaddok(name_dokter):
-    return db.dokter.find_one({'name_dokter': name_dokter})
+def get_jadwal_dokter(name_dokter):
+    return db.jadwal_dokter.find_one({'name_dokter': name_dokter})
 
-def update_tambah_jaddok(name_dokter, updated_data):
-    db.dokter.update_one({'name_dokter': name_dokter}, {'$set': updated_data})
+def update_jadwal_dokter(name_dokter, updated_data):
+    db.jadwal_dokter.update_one({'name_dokter': name_dokter}, {'$set': updated_data})
+
+@app.route('/edit_jaddok/<name_dokter>', methods=['GET', 'POST'])
+def edit_jaddok(name_dokter):
+    if request.method == 'POST':
+        updated_data = {
+            'name_dokter': request.form['name_dokter'],
+            'hari': request.form['hari'],
+            'tanggal': request.form['tanggal'],
+            'poli': request.form['poli'],
+            'shift': request.form['shift']
+        }
+        update_jadwal_dokter(name_dokter, updated_data)
+        return redirect(url_for('jadwal_dokter'))
+    
+    jadwal_dokter = get_jadwal_dokter(name_dokter)
+
+    return render_template('edit_jaddok.html', jadwal_dokter=jadwal_dokter)
+
+@app.route('/delete_jaddok/<name_dokter>')
+def delete_jaddok(name_dokter):
+    db.dokter_jadwal.delete_one({'name_dokter': name_dokter})
+    return redirect(url_for('jadwal_dokter'))
 
 if __name__ == "__main__":
     app.run("0.0.0.0", port=5000, debug=True)
