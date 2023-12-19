@@ -417,7 +417,7 @@ def delete_dokter(id_dokter):
     db.dokter.delete_one({'id_dokter': id_dokter})
     return redirect(url_for('dokter'))
 
-    
+
 
 @app.route('/tambah_jaddok_page')
 def tambah_jaddok_page():
@@ -466,6 +466,10 @@ def edit_jaddok(name_dokter):
 def delete_jaddok(name_dokter):
     db.jadwal_dokter.delete_one({'name_dokter': name_dokter})
     return redirect(url_for('jadwal_dokter'))
+
+@app.route('/profil_admin')
+def profil_admin():
+    return render_template('profil_admin.html')
 
 if __name__ == "__main__":
     app.run("0.0.0.0", port=5000, debug=True)
