@@ -118,16 +118,16 @@
                 <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
                     <ul class="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1 pe-3">
                         <li class="nav-item mx-2">
-                            <a class="nav-link active" aria-current="page" href="/dokter">Dokter</a>
+                            <a class="nav-link" href="/tambah_jaddok">Dokter</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link" href="/tambah_jadpeg">Pegawai</a>
+                            <a class="nav-link active" aria-current="page" href="/tambah_jadpeg">Pegawai</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link" href="/dokter_absen">Absen</a>
+                            <a class="nav-link" href="/pegawai_absen">Absen</a>
                         </li>
                         <li class="nav-item mx-2">
-                            <a class="nav-link" href="/rekap_absen_dokter">Rekap Absen</a>
+                            <a class="nav-link" href="/rekap_absen_pegawai">Rekap Absen</a>
                         </li>
 
                     </ul>
@@ -146,46 +146,45 @@
 
             <div class="row justify-content-center" style="padding-top: 150px;">
                 <div class="col-12 col-sm-6 bg-white m-auto" style="padding-bottom: 10px; border-radius: 16px;">
-                    <h2 class="text-center mb-3">Tambahkan Jadwal Dokter</h2>
-                    <form name="tambahanggota" action="/jadwal_dokter" method="POST">
+                    <h2 class="text-center mb-3">Tambahkan Jadwal Pegawai</h2>
+                    <form name="tambahanggota" action="{{ url_for('edit_jadpeg', name_pegawai=jadwal_pegawai.name_pegawai) }}" method="POST">
                         <div class="row mb-3">
                             <label for="name" class="col-sm-2 col-form-label">Nama</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name" name="name_dokter">
+                                <input type="text" class="form-control" id="name" name="name_pegawai" action="{{ jadwal_pegawai.name }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="telepon" class="col-sm-2 col-form-label">Hari</label>
                             <div class="col-sm-10">
-                                <input type="datetime" class="form-control" id="hari" name="hari">
+                                <input type="datetime" class="form-control" id="hari" name="hari" action="{{ jadwal_pegawai.hari }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="email" class="col-sm-2 col-form-label">Tanggal</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" id="tanggal" name="tanggal">
+                                <input type="date" class="form-control" id="tanggal" name="tanggal" action="{{ jadwal_pegawai.tanggal }}">
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="poli" class="col-sm-2 col-form-label">Nama Poli</label>
+                            <label for="posisi" class="col-sm-2 col-form-label">Posisi</label>
                             <div class="col-sm-10">
-                                <select class="form-select" aria-label="Default select example" id="poli"
-                                    name="poli">
-                                    <option selected>--Pilih Poli--</option>
-                                    <option value="Poli Umum">Poliklinik Umum</option>
-                                    <option value="Poli Anak">Poliklinik Anak</option>
-                                    <option value="Poli Gigi">Poliklinik Gigi</option>
-                                    <option value="Poli Bedah">Poliklinik Bedah</option>
-                                    <option value="Poli Penyakit Dalam">Poliklinik Penyakit Dalam</option>
-                                    <option value="Poli Mata">Poliklinik Mata</option>
-                                    <option value="Poli Kandungan">Poliklinik Kandungan</option>
-                                    <option value="Poli JIwa">Poliklinik Jiwa</option>
-                                    <option value="Poli Jantung">Poliklinik Jantung</option>
-                                    <option value="Poli Paru">Poliklinik Paru</option>
-                                    <option value="Poli Psikologi">Poliklinik Psikologi</option>
+                                <select class="form-select" aria-label="Default select example" id="posisi"
+                                    name="posisi" action="{{ jadwal_pegawai.posisi }}">
+                                    <option selected>--Pilih Posisi--</option>
+                                    <option value="Administrasi">Administrasi</option>
+                                    <option value="Apotek">Apoteker</option>
+                                    <option value="Staff IT">Staff IT</option>
+                                    <option value="Teknisi Lab">Teknisi Lab</option>
+                                    <option value="Humas">Humas</option>
+                                    <option value="Kasir">Kasir</option>
+                                    <option value="Gizi">Gizi</option>
+                                    <option value="Kesehatan Lingkungan">Kesehatan Lingkungan</option>
+                                    <option value="Security">Security</option>
+                                    <option value="Cleaning Service">Cleaning Service</option>
                                 </select>
                             </div>
                         </div>
@@ -194,7 +193,7 @@
                             <label for="shift" class="col-sm-2 col-form-label">Shift</label>
                             <div class="col-sm-10">
                                 <select class="form-select" aria-label="Default select example" id="shift"
-                                name="shift">
+                                name="shift" action="{{ jadwal_pegawai.shift }}">
                                 <option selected>--Pilih Shift--</option>
                                 <option value="Pagi">Shift Pagi</option>
                                 <option value="Siang">Shift Siang</option>

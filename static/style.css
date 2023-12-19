@@ -119,14 +119,14 @@ input[type="password"]:focus {
     font-weight: 900;
     padding-top: 20px;
 }
-
+/* 
 .btn{
     background: #187ba8 !important;
     color: #000;
     transform: translateY(10px);
     font-size: 14px;
     border-radius: 10px !important;
-}
+} */
 
 .container{
     padding-top: 15px;
