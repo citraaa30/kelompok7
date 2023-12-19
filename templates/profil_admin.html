@@ -19,7 +19,6 @@
     <title>Rumah Sakit</title>
 </head>
 
-
 <body class="vh-100 overflow-hidden">
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
@@ -72,24 +71,28 @@
                 <div class="card-body">
                     <h4 class="card-title text-center mb-4">Halaman Admin</h4>
 
-                    <div class="mb-3">
-                        <label for="emailAdmin" class="form-label">Email Admin</label>
-                        <input type="email" class="form-control" id="email_admin" name="email_admin"
-                            value="{{ admin.email }}" required>
-                    </div>
+                    <form action="{{ url_for('admin_profile') }}" method="post">
+                       
 
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username_admin" name="username_admin"
-                            value="{{ admin.username }}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="pasword_admin" name="password"
-                            value="{{ admin.password }}" required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="emailAdmin" class="form-label">Email Admin</label>
+                            <input type="email" class="form-control" id="email_admin" name="email_admin"
+                                value="{{ admin.email }}" required>
+                        </div>
 
-                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username_admin" name="username_admin"
+                                value="{{ admin.username }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password_admin" name="password_admin"
+                                value="{{ admin.password }}" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </form>
                 </div>
             </div>

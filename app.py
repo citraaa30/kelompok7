@@ -476,9 +476,27 @@ def delete_jaddok(name_dokter):
     db.jadwal_dokter.delete_one({'name_dokter': name_dokter})
     return redirect(url_for('jadwal_dokter'))
 
-@app.route('/profil_admin')
-def profil_admin():
-    return render_template('profil_admin.html')
+@app.route('/admin_profile', methods=['GET', 'POST'])
+def admin_profile():
+    if request.method == 'POST':
+        # Ambil data dari formulir jika metodenya POST
+        email_admin = request.form['email_admin']
+        username_admin = request.form['username_admin']
+        password_admin = request.form['password_admin']
+
+        # Lakukan sesuatu dengan data tersebut, misalnya simpan ke database
+
+        # Setelah itu, dapatkan data admin dari database dan kirimkan ke template
+        admin_data = {
+            'email': email_admin,
+            'username': username_admin,
+            'password': password_admin,  # Ini mungkin tidak aman di dunia nyata, sebaiknya dienkripsi
+        }
+
+        return render_template('profil_admin.html', admin=admin_data)
+    else:
+        # Jika metodenya GET, berikan halaman profil admin kosong
+        return render_template('profil_admin.html', admin=None)
 
 if __name__ == "__main__":
     app.run("0.0.0.0", port=5000, debug=True)
