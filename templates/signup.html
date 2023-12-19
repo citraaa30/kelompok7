@@ -158,6 +158,7 @@
             let useremail = $('#email').val()
             let username = $('#username').val()
             let password = $('#password').val()
+            let role = $('#role').val()
 
             if (!is_email(useremail)) {
                 $("#useremail").addClass('is-invalid')
@@ -188,7 +189,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/sign_up/check_email',
-                data: {
+                data: { 
                     useremail_give: useremail
                 },
                 success: function (response) {
@@ -205,6 +206,7 @@
                             type: 'POST',
                             url: '/sign_up/save',
                             data: {
+                                role_give : role,
                                 useremail_give: useremail,
                                 username_give: username,
                                 password_give: password
@@ -254,7 +256,12 @@
                     <p id="alert_password" style="margin:1% 0 0 2% ;color:red;font-size: x-small;font-weight:bold;"
                         class="d-none">Pasword harus terdiri dari 8 - 20 karakter yang mengandung huruf besar atau
                         kecil, angka, dan boleh mengandung karakter (!@#$%^&*)</p>
-                </div>        
+                </div>   
+                <select class="form-select" aria-label="Default select example" id="role">
+                    <option selected>Pilih</option>
+                    <option value="dokter">Dokter</option>
+                    <option value="pegawai">Pegawai</option>
+                  </select>     
                 <hr>
                 <button onclick="sign_up()" class="btn btn-primary mb-1">Sign Up</button>
                           

@@ -1,4 +1,7 @@
 import os
+from os.path import join, dirname
+from dotenv import load_dotenv
+
 from pymongo import MongoClient
 import jwt
 from datetime import datetime, timedelta
@@ -8,24 +11,22 @@ from flask_cors import CORS
 from flask import flash
 import time
 import hashlib
-import uuid
-import requests
 from flask import Flask, send_file, render_template, jsonify, request, redirect, url_for
 from werkzeug.utils import secure_filename
 
-app = Flask(__name__)
-api = Api(app)
-
-MONGODB_CONNECTION_STRING = "mongodb+srv://kelompok7:citra123@cluster0.64sqdbj.mongodb.net/"
-client = MongoClient(MONGODB_CONNECTION_STRING)
-db = client.dbprojectakhir
-
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 MONGODB_URI = os.environ.get("MONGODB_URI")
 DB_NAME =  os.environ.get("DB_NAME")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 TOKEN_KEY = os.environ.get("TOKEN_KEY")
 
+client = MongoClient(MONGODB_URI)
+
+db = client[DB_NAME]
+
+app = Flask(__name__)
 
 @app.route('/', methods=['GET']) # UNTUK HALAMAN INDEX
 def home():
@@ -40,7 +41,14 @@ def home():
         
         if user_info is not None:
             user_role = user_info.get('role', 'default_role')  # Set a default role if 'role' is not present
-            return render_template('index.html', user_role=user_role)
+            if user_role == 'admin':
+                return redirect(url_for('profil_admin'))
+            elif user_role == 'pegawai':
+                return redirect(url_for('profil_pegawai'))
+            elif user_role == 'dokter':
+                return redirect(url_for('profil_dokter'))
+            else:
+                return render_template('index.html', user_role=user_role)
         else:
             # Handle the situation when the user is not found
             return render_template('index.html', user_role='default_role')
@@ -51,7 +59,6 @@ def home():
     except jwt.exceptions.DecodeError:
         msg = 'There was a problem logging you in'
         return redirect(url_for('halaman_login', msg=msg))
-
 
 @app.route('/login', methods=['GET']) #UNTUK HALAMAN LOGIN
 def halaman_login():
@@ -100,11 +107,13 @@ def sign_up():
     useremail_receive = request.form['useremail_give']
     username_receive = request.form['username_give']
     password_receive = request.form['password_give']
+    role_receive = request.form["role_give"]
     password_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
     doc = {
         "useremail" : useremail_receive,
         "username"  : username_receive,
         "password"  : password_hash,
+        "role" : role_receive,
        
     }
     db.users.insert_one(doc)
